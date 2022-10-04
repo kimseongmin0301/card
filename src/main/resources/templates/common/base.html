@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html
+        lang="ko"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+    <th:block th:replace="common/header"/>
+    <title>타이틀</title>
+</head>
+<body>
+
+<div class="tb-container">
+    <th:block th:replace="common/nav"/>
+    <div class="tb-content">
+        <th:block th:replace="common/top"/>
+        <div class="content-body">
+            <th:block layout:fragment="body"></th:block>
+        </div>
+    </div>
+</div>
+<th:block th:replace="common/footer"/>
+</body>
+</html>

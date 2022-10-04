@@ -1,0 +1,28 @@
+body {
+    margin:0;
+    padding:0;
+}
+#wrap{
+    width:100%;
+    height:100vh;
+}
+
+.tb-container{
+    margin: 0 auto;
+    width:100%;
+    height:100vh;
+
+    position: relative;
+}
+
+.tb-nav{
+    position: absolute;
+    left:0;
+    top:0;
+}
+
+.tb-content{
+    position: absolute;
+    left:300px;
+    top:0;
+}
