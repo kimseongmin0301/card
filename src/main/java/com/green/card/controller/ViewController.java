@@ -14,4 +14,14 @@ public class ViewController {
     public String index2() {
         return "index2";
     }
+
+    @GetMapping("/test")
+    public String test() {
+        return "test";
+    }
+
+    @GetMapping("/main")
+    public String main() {
+        return "main";
+    }
 }
