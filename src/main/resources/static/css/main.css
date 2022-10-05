@@ -23,7 +23,7 @@ body {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    -ms-overflow-style: scrollbar;
+    background: #000;
 }
 
 body>* {
@@ -32,12 +32,11 @@ body>* {
 }
 
 html, body {
-    height: 100vh;
+    height: 100%;
+    width: 100%;
     overflow-x: hidden;
     overflow-y: hidden;
-    width: 100%;
     color: #ffffff !important;
-    background: black;
 }
 
 h1{
@@ -96,6 +95,24 @@ input{
 }
 
 #signup-form input[type="text"], #signup-form input[type="password"]{
-    width: 18em;
+    width: 12em;
     padding: 0 16px;
+}
+
+#header, #signup-form{
+    width: 685px;
+}
+
+#bg{
+    transition: opacity 2s ease-in-out;
+    height: 100%;
+    left: 0;
+    opacity: 0.25;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url("../img/bg01.jpg");
 }
