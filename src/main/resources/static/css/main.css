@@ -63,7 +63,7 @@ p{
     color: #ffffff !important;
     cursor: pointer;
     display: inline-block;
-    font-weight: 700;
+    font-weight: 700 !important;
     height: 2.75em;
     line-height: 2.75em;
     padding: 0 1.125em;
@@ -83,7 +83,7 @@ p{
 
 #signup-form .sign-in{
     background: transparent;
-    color: rgba(255, 255, 255, 0.35);
+    color: rgba(255, 255, 255, 0.9);
 }
 
 #login-btn:hover{
