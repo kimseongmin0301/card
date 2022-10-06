@@ -1,13 +1,31 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{common/base}"
->
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <title>Title</title>
+</head>
 <body>
-<th:block layout:fragment="body">
-  <div>
-
-  </div>
-</th:block>
+<div id="wrap">
+    <header id="header">
+        <h1>저 푸른 초원위에</h1>
+        <p>그림같은 </p>
+    </header>
+    <form id="signup-form">
+        <input type="text" class="sign-in" placeholder="ID">
+        <input type="password" class="sign-in" placeholder="Password">
+        <input type="button" id="login-btn" value="Login">
+        <input type="button" id="kakaoLogin" value="kakao">
+        <input type="button" id="kakaoLogout" value="logout">
+    </form>
+</div>
+<div id="bg">
+    <div id="insert">
+        <span id="insert-btn">회원가입</span>
+    </div>
+</div>
+<script src="/js/kakao.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 </body>
 </html>

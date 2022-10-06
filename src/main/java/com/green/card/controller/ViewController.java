@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ViewController {
     @GetMapping("/index1")
     public String index() {
-        return "index";
+        return "index1";
     }
 
     @GetMapping("/index2")
@@ -20,8 +20,8 @@ public class ViewController {
         return "test";
     }
 
-    @GetMapping("/main")
+    @GetMapping("/home")
     public String main() {
-        return "main";
+        return "index";
     }
 }

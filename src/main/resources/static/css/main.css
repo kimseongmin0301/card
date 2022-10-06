@@ -113,6 +113,17 @@ input{
     width: 100%;
     z-index: 1;
     background-repeat: no-repeat;
-    background-size: cover;
-    background-image: url("../img/bg01.jpg");
+    background-image: url("https://www.wallpaperuse.com/wallp/0-9757_m.jpg");
+}
+
+#insert{
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+#wrap{
+    margin: 0 16px;
 }
