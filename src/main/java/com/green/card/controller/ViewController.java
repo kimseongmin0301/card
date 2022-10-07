@@ -24,4 +24,8 @@ public class ViewController {
     public String main() {
         return "index";
     }
+    @GetMapping("/join")
+    public String join() {
+        return "join";
+    }
 }
