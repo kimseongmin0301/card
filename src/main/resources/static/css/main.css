@@ -121,9 +121,10 @@ input{
     justify-content: flex-end;
     margin: 10px;
     overflow: hidden;
+}
+#insert-btn{
     cursor: pointer;
 }
-
 #wrap{
     margin: 0 16px;
 }
