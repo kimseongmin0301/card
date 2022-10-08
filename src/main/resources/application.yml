@@ -1,7 +1,18 @@
 spring:
   profiles:
     active: local
-
+  mail:
+    # Google smtp  server
+    host:  smtp.gmail.com
+    port: 587
+    username: poseania1358@gmail.com
+    password: evhmterdwkgwtqwy
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+          auth: true
 mybatis:
   configuration:
     map-underscore-to-camel-case: true

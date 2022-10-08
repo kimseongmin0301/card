@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/css/join.css">
 
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+
     <meta charset="UTF-8">
     <title>Document</title>
 </head>
@@ -29,7 +30,7 @@
                             </label>
                         </h3>
                         <span class="int-area">
-                                <input type="text" placeholder="ID" id="id" name="id" class="int">
+                                <input type="text" placeholder="ID" id="id" name="id" class="int" maxlength="20">
                         </span>
                         <span class="error_next_box" id="idMsg"></span>
                     </div>
@@ -40,7 +41,7 @@
                             </label>
                         </h3>
                         <span class="int-area">
-                            <input type="password" placeholder="Password" id="pw" name="pw" class="int">
+                            <input type="password" placeholder="Password" id="pw" name="pw" class="int" maxlength="20">
                         </span>
                         <span class="error_next_box" id="pwMsg"></span>
                         <h3 class="join-title">
@@ -49,7 +50,7 @@
                             </label>
                         </h3>
                         <span class="int-area">
-                                <input type="password" placeholder="Password" id="pw2" class="int">
+                                <input type="password" placeholder="Password" id="pw2" class="int" maxlength="20">
                         </span>
                         <span class="error_next_box" id="pw2Msg"></span>
                     </div>
@@ -62,7 +63,7 @@
                             </label>
                         </h3>
                         <span class="int-area">
-                            <input type="text" placeholder="Name" id="name" name="name" class="int">
+                            <input type="text" placeholder="Name" id="name" name="name" class="int" maxlength="40">
                         </span>
                         <span class="error_next_box" id="nameMsg"></span>
                         <h3 class="join-title">
@@ -71,7 +72,7 @@
                             </label>
                         </h3>
                         <span class="int-area">
-                            <input type="text" placeholder="Nickname" id="nickname" name="nickname" class="int">
+                            <input type="text" placeholder="Nickname" id="nickname" name="nickname" class="int" maxlength="20">
                         </span>
                         <span class="error_next_box" id="nicknameMsg"></span>
                     </div>
@@ -82,7 +83,7 @@
                             </label>
                         </h3>
                         <span class="int-area">
-                            <input type="text" placeholder="Phone" id="phone" name="phone" class="int">
+                            <input type="text" placeholder="Phone" id="phone" name="phone" class="int" maxlength="13" autofocus>
                         </span>
                         <span class="error_next_box" id="phoneMsg"></span>
                     </div>
@@ -96,7 +97,7 @@
                         </h3>
                         <div class="mobile-area">
                             <span class="int-mobile">
-                                <input type="tel" placeholder="Email" id="email" name="email" class="int">
+                                <input type="tel" placeholder="Email" id="email" name="email" class="int" maxlength="100">
                             </span>
                             <span type="button" class="mobile-btn" id="check-email">
                                 인증번호 받기
@@ -117,5 +118,6 @@
     <th:block th:replace="common/footer"/>
 </div>
 <div id="bg"></div>
+<script type="module" src="/js/join.js"></script>
 </body>
 </html>
