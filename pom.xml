@@ -12,6 +12,7 @@
 	<artifactId>card</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>card</name>
+	<packaging>war</packaging>
 	<description>Card</description>
 	<properties>
 		<java.version>11</java.version>
@@ -91,6 +92,16 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 			<version>2.7.1</version>
+		</dependency>
+		<!-- marked the embedded servlet container as provided -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
 	</dependencies>
 	<build>

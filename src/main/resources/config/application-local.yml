@@ -5,4 +5,4 @@ spring:
   datasource:
     url: jdbc:mysql://poceania.o-r.kr:3306/card
     username: card
-    password: card123
+    password: card00
