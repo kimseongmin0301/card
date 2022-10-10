@@ -15,15 +15,20 @@ $(function () {
 
     const onBtnSend = () => {
         $('#email').on("propertychange change keyup paste input", () => {
-
             $.ajax({
                 url: `/api/selectMail`,
                 type: `post`,
                 contentType: 'application/json',
-                data: JSON.stringify({"email": email}),
+                data: JSON.stringify({"userEmail": $('#email').val()}),
+                success:(data) => {
+                    console.log(data.result.email);
+                    if(data.result.email == 1){
+                        $('#EmailMsg').html('가입되어있는 이메일 입니다.');
+                    }else{
 
+                    }
+                }
             })
-
 
             if (!regEmail($('#email').val())) {
                 $('#EmailMsg').css({
@@ -51,8 +56,25 @@ $(function () {
         })
     }
 
+// TODO 이거 오류 수정해야함
+    $('#check-email').on('click', () => {
+        $.ajax({
+            url: `/api/selectMail`,
+            type: `post`,
+            contentType: 'application/json',
+            data: JSON.stringify({"userEmail": $('#email').val()}),
+            success:(data) => {
+                console.log(data.result.email);
+                if(data == 1){
+                    $('#EmailMsg').html('가입되어있는 이메일 입니다.');
+                }else{
+                    getAuthNo();
+                }
+            }
+        })
+    })
 
-    // 인증번호 눌렀을때 중복체크 or 자동체크
+    // 자동체크
 
     const getAuthNo = () => {
         $('#authNo').removeAttr("readonly");

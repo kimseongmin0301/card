@@ -7,10 +7,10 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserMapper {
     /**
      * 이메일 중복 검사 쿼리
-     * @param email
+     * @param userVo
      * @return
      */
-    int selectEmail(String email);
+    int selectEmail(UserVo userVo);
 
     /**
      * 회원가입 쿼리

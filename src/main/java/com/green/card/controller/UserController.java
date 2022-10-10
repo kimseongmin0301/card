@@ -5,6 +5,7 @@ import com.green.card.service.EmailService;
 import com.green.card.service.UserService;
 import com.green.card.vo.EmailAuthRequestVo;
 import com.green.card.vo.ResCommonVo;
+import com.green.card.vo.UserVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -40,14 +41,14 @@ public class UserController {
 
     /**
      * 이메일 중복 검사
-     * @param email
+     * @param userVo
      * @return
      */
     @PostMapping(value="/api/selectMail", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResCommonVo selectEmail(@RequestBody String email){
+    public ResCommonVo selectEmail(@RequestBody UserVo userVo){
 
         return ResCommonVo.builder()
-                .result(userService.selectEmail(email))
+                .result(userService.selectEmail(userVo))
                 .code(ResCommonCode.SUCCESS)
                 .build();
     }
