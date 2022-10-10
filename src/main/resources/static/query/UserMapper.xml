@@ -11,13 +11,17 @@
                             ,   user_nickname
                             ,   user_email)
             VALUES          (
-                                #{user_id}
-                            ,   #{user_pw}
-                            ,   #{user_name}
-                            ,   #{user_nickname}
-                            ,   #{user_email}
+                                #{id}
+                            ,   #{pw}
+                            ,   #{name}
+                            ,   #{nickname}
+                            ,   #{email}
                             )
     </insert>
 
-
+    <select id="selectEmail" parameterType="com.green.card.vo.UserVo" resultType="int">
+        SELECT  COUNT(*)
+        FROM    tb_user
+        WHERE   user_email =  #{email}
+    </select>
 </mapper>

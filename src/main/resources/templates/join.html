@@ -15,12 +15,10 @@
 <div class="tb-container">
     <div id="header">
         <div class="header-logo">
-            <h1 class="h-logo">
-                Title
-            </h1>
+            <h1 class="h-logo" id="logo">Title</h1>
         </div>
     </div>
-    <form id="join-form" style="width:100%;">
+    <form id="join-form" style="width:100%;" method="post">
             <div class="tb-content" style="max-width:460px;">
                 <div class="p-2 row-group">
                     <div class="join-row">
@@ -83,7 +81,7 @@
                             </label>
                         </h3>
                         <span class="int-area">
-                            <input type="text" placeholder="Phone" id="phone" name="phone" class="int" maxlength="13" autofocus>
+                            <input type="tel" placeholder="Phone" id="phone" name="phone" class="int" maxlength="13" autofocus>
                         </span>
                         <span class="error_next_box" id="phoneMsg"></span>
                     </div>
@@ -97,14 +95,14 @@
                         </h3>
                         <div class="mobile-area">
                             <span class="int-mobile">
-                                <input type="tel" placeholder="Email" id="email" name="email" class="int" maxlength="100">
+                                <input type="text" placeholder="Email" id="email" name="email" class="int" maxlength="100">
                             </span>
-                            <span type="button" class="mobile-btn" id="check-email">
+                            <button class="mobile-btn" id="check-email" disabled="disabled">
                                 인증번호 받기
-                            </span>
+                            </button>
                         </div>
                         <span class="int-area" style="margin-top: 10px;">
-                            <input type="text" placeholder="인증번호" id="authNo" name="authNo" class="int">
+                            <input type="text" placeholder="인증번호" id="authNo" name="authNo" class="int" readonly="readonly">
                         </span>
                         <span class="error_next_box" id="EmailMsg"></span>
                         <span class="error_next_box" id="authNoMsg"></span>
