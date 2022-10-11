@@ -12,6 +12,20 @@ export const regSpecialChar = (sChar) => {
     return regSpecialChar.test(sChar)
 }
 
+// 이름 체크
+export const regName = (name) => {
+    const regName = /^[a-zA-Z가-힣]{2,16}$/g;
+
+    return regName.test(name);
+}
+
+// 닉네임 체크
+export const regNickname = (nickname) => {
+    const regNickname = /^[a-zA-Z가-힣0-9]{2,8}$/g;
+
+    return regNickname.test(nickname);
+}
+
 // 아이디 체크(소문자 영,숫자)
 export const regId = (id) => {
     const regId = /^[0-9a-z]{4,12}$/g;
