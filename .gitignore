@@ -32,5 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 .mvn
-.out/*
+.out/**
 .out/
+*.class
