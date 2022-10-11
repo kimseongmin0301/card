@@ -1,14 +1,14 @@
 import {autoHyphen, regEmail, regName, regId, regPw, regNickname} from "./module.js";
 
 $(function () {
-    const checkBoolean = {
-        userId: false,
+    const isEmpty = {
+        id: false,
         pw: false,
         pw2: false,
         name: false,
         nickname: false,
         email: false,
-        authNo: false
+        auth: false
     }
 
     // 휴대폰 자동 - 삽입
@@ -37,23 +37,23 @@ $(function () {
                     "color":"red"
                 })
                 $('#idMsg').html("아이디는 4글자 ~ 12글자 사이여야 합니다.")
-                checkBoolean.id = false;
+                isEmpty.id = false;
             } else if (id.length == 0){
             $('#idMsg').html("소문자 영숫자 형식으로 4 ~ 12 글자를 맞춰주세요.");
-                checkBoolean.id = false;
+                isEmpty.id = false;
             } else{
                 if(regId(id)){
                     $('#idMsg').css({
                         "color":"green"
                     })
                     $('#idMsg').html("멋진 아이디군요.")
-                    checkBoolean.id = true;
+                    isEmpty.id = true;
                 }else{
                     $('#idMsg').css({
                         "color":"red"
                     })
                     $('#idMsg').html("소문자 영어, 숫자 조합으로 맞춰주세요.")
-                    checkBoolean.id = false;
+                    isEmpty.id = false;
                 }
             }
             if(timeout) {
@@ -74,11 +74,11 @@ $(function () {
             data: JSON.stringify({"userId": $('#id').val()}),
             success: (data) => {
                 if(data.result.id == 1){
+                    isEmpty.id = false;
                     $('#idMsg').css({
                         "color":"red"
                     })
                     $('#idMsg').html("중복된 아이디입니다.")
-                    checkBoolean.id = false;
                 }
             }
         })
@@ -93,27 +93,26 @@ $(function () {
                     "color":"red"
                 })
                 $('#nameMsg').html("한글, 대, 소문자 2 ~ 16 글자를 입력해주세요.");
-                checkBoolean.name = false;
+                isEmpty.name = false;
             } else if(name.length == 0){
                 $('#nameMsg').css({
                     "color":"red"
                 })
                 $('#nameMsg').html("필수 정보입니다.");
-                checkBoolean.name = false;
+                isEmpty.name = false;
             }else{
                 if(regName(name)){
                     $('#nameMsg').css({
                         "color":"green"
                     })
                     $('#nameMsg').html("멋진 이름이군요.");
-
-                    checkBoolean.name = true;
+                    isEmpty.name = true;
                 } else{
                     $('#nameMsg').css({
                         "color":"red"
                     })
                     $('#nameMsg').html("올바른 이름을 작성해 주세요.");
-                    checkBoolean.name = false;
+                    isEmpty.name = false;
                 }
             }
         });
@@ -128,26 +127,26 @@ $(function () {
                     "color":"red"
                 })
                 $('#pwMsg').html("비밀번호는 8글자 ~ 12글자 사이여야 합니다.")
-                checkBoolean.pw = false;
+                isEmpty.pw = false;
             } else if (pw.length == 0){
                 $('#pwMsg').css({
                     "color":"red"
                 })
                 $('#pwMsg').html("대소문자 영숫자 형식으로 8 ~ 12 글자를 맞춰주세요.");
-                checkBoolean.pw = false;
+                isEmpty.pw = false;
             } else{
                 if(regPw(pw)){
                     $('#pwMsg').css({
                         "color":"green"
                     })
                     $('#pwMsg').html("비밀번호 입력 완료")
-                    checkBoolean.pw = true;
+                    isEmpty.pw = true;
                 }else{
                     $('#pwMsg').css({
                         "color":"red"
                     })
                     $('#pwMsg').html("소문자 영어, 숫자 조합으로 맞춰주세요.")
-                    checkBoolean.pw = false;
+                    isEmpty.pw = false;
                 }
             }
         })
@@ -158,20 +157,20 @@ $(function () {
 
             if(pw2.length == 0){
                 $('#pw2Msg').html("")
-                checkBoolean.pw2 = false;
+                isEmpty.pw2 = false;
             }else{
                 if($('#pw').val() == pw2){
                     $('#pw2Msg').css({
                         "color":"green"
                     })
                     $('#pw2Msg').html("일치합니다.")
-                    checkBoolean.pw2 = true;
+                    isEmpty.pw2 = true;
                 }else{
                     $('#pw2Msg').css({
                         "color":"red"
                     })
                     $('#pw2Msg').html("비밀번호를 다시 입력해주세요")
-                    checkBoolean.pw2 = false;
+                    isEmpty.pw2 = false;
                 }
             }
         })
@@ -189,27 +188,26 @@ $(function () {
                     "color":"red"
                 })
                 $('#nicknameMsg').html("닉네임은 2~8 글자입니다.")
-                checkBoolean.nickname = false;
+                isEmpty.nickname = false;
             } else if(nickname.length == 0) {
                 $('#nicknameMsg').css({
                     "color":"red"
                 })
                 $('#nicknameMsg').html("필수정보 입니다.")
-                checkBoolean.nickname = false;
-            } else
-            {
+                isEmpty.nickname = false;
+            } else {
                 if(regNickname(nickname)){
                     $('#nicknameMsg').css({
                         "color":"green"
                     })
                     $('#nicknameMsg').html("멋진 닉네임이군요.")
-                    checkBoolean.nickname = true;
+                    isEmpty.nickname = true;
                 }else{
                     $('#nicknameMsg').css({
                         "color":"red"
                     })
                     $('#nicknameMsg').html("한글, 대, 소문자 2 ~ 8 글자로 맞춰주세요.")
-                    checkBoolean.nickname = false;
+                    isEmpty.nickname = false;
                 }
             }
             if(timeout) {
@@ -230,11 +228,11 @@ $(function () {
             data: JSON.stringify({"userNickname": $('#nickname').val()}),
             success: (data) => {
                 if(data.result.userNickname == 1) {
+                    isEmpty.nickname = false;
                     $('#nicknameMsg').css({
                         "color":"red"
                     })
                     $('#nicknameMsg').html("중복된 닉네임입니다.")
-                    checkBoolean.nickname = false;
                 }
             }
         })
@@ -253,6 +251,7 @@ $(function () {
                 })
                 $('#check-email').attr("disabled", "disabled");
                 $('#EmailMsg').html("이메일 형식이 올바르지 않습니다.");
+                isEmpty.email = false;
             } else{
                 selectEmail();
             }
@@ -278,7 +277,7 @@ $(function () {
                     $('#check-email').attr("disabled", "disabled");
 
                     $('#EmailMsg').html('가입되어있는 이메일 입니다.');
-                    checkBoolean.email = false;
+                    isEmpty.email = false;
                 } else {
                     $('#EmailMsg').css({
                         "color": "green"
@@ -290,6 +289,7 @@ $(function () {
                         "cursor": "pointer"
                     })
                     $('#EmailMsg').html("멋진 이메일이군요!");
+                    isEmpty.email = true;
                 }
             }
         })
@@ -305,6 +305,7 @@ $(function () {
 
     // 메일 보내기 함수
     const getAuthNo = () => {
+        isEmpty.auth = false;
         $('#authNo').removeAttr("readonly");
         let email = $('#email').val();
 
@@ -315,7 +316,7 @@ $(function () {
             data: JSON.stringify({"email": email}),
             success: (data) => {
                 alert("인증번호가 발송되었습니다. 메일을 확인하세요");
-                console.log(data);
+                // console.log(data);
                 onCheckAuthNo(data);
             }
         })
@@ -329,30 +330,88 @@ $(function () {
                     "color":"green"
                 })
                 $('#authNoMsg').html("올바른 코드입니다.");
-                checkBoolean.authNo = true;
+                $('#join-btn').css({
+                    "cursor": "pointer",
+                    "background": "#1cb495"
+                })
+                $('#join-btn').removeAttr('disabled');
+                isEmpty.auth = true;
             }else{
                 $('#authNoMsg').css({
                     "color":"red"
                 })
+                $('#join-btn').css({
+                    "cursor": "auto",
+                    "background": "#14836C"
+                })
                 $('#authNoMsg').html("코드가 올바르지 않습니다. 다시 확인해주세요");
-                checkBoolean.authNo = false;
+                $('#join-btn').attr('disabled','disabled');
+                isEmpty.auth = false;
             }
-        })
-    }
-// TODO JoinBtn 클릭시 입력안된곳으로 스크롤 이동
-    const onJoin = () => {
-        $('#join-btn').on('click', () => {
-            let empty;
-            for(var i in checkBoolean){
-                if(!checkBoolean[i]){
-                    empty = i;
-                    break;
-                }
-            }
-            $('#email').get(0).scrollIntoView(true)
         })
     }
 
+    // 영역 클릭시 focus
+    const onFocus = () => {
+        $('.int-area').on('click', (e) => {
+            try{
+                let element = e.target.children[0].id;
+                $('#' + element).focus();
+            } catch(e){}
+        })
+    }
+
+    // 회원가입 버튼 클릭
+    const onJoin = () => {
+        $('#join-btn').on('click', () => {
+            let target;
+            for(let i in isEmpty){
+                if(!isEmpty[i]){
+                    target = i;
+                    break;
+                }
+            }
+
+            if(target === undefined){
+                onInsertUser();
+            } else{
+                $('#join-btn').attr('disabled','disabled');
+
+                $('#' + target).focus();
+
+                let offset = $('.tb-content').offset();
+                $("html, body").animate({scrollTop: offset.top});
+            }
+        })
+    }
+
+    // 회원가입 실행
+    const onInsertUser = () => {
+        const data = {
+            "userId": $('#id').val(),
+            "userPw": $('#pw').val(),
+            "userName": $('#name').val(),
+            "userNickname": $('#nickname').val(),
+            "userEmail": $('#email').val(),
+            "userPhone": $('#phone').val()
+        }
+
+        $.ajax({
+            url: `/register`,
+            type: `post`,
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success:(response) => {
+                if(response.code !== 'SUCCESS')
+                    return;
+
+                alert("회원가입 되었습니다.")
+                location.href=`/home`
+            }
+        });
+    }
+
+    onFocus();
     onIdCheck();
     onPwCheck();
     onNameCheck();

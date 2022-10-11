@@ -9,4 +9,5 @@ public class UserVo {
     private String userName;
     private String userNickname;
     private String userEmail;
+    private String userPhone;
 }

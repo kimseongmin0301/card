@@ -31,4 +31,10 @@ public interface UserMapper {
      * @return
      */
     int selectNickname(UserVo userVo);
+
+    /**
+     * 회원등록 쿼리
+     * @param userVo
+     */
+    void insertMember(UserVo userVo);
 }

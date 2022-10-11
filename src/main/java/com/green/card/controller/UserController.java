@@ -80,4 +80,18 @@ public class UserController {
                 .code(ResCommonCode.SUCCESS)
                 .build();
     }
+
+    /**
+     * user 등록
+     * @param userVo
+     * @return
+     */
+    @PostMapping(value="/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResCommonVo regUser(@RequestBody UserVo userVo){
+        userService.insertUser(userVo);
+
+        return ResCommonVo.builder()
+                .code(ResCommonCode.SUCCESS)
+                .build();
+    }
 }

@@ -48,4 +48,12 @@ public class UserService {
 
         return resultMap;
     }
+
+    /**
+     * 회원 등록
+     * @param userVo
+     */
+    public void insertUser(UserVo userVo){
+        userMapper.insertMember(userVo);
+    }
 }
