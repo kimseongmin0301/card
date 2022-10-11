@@ -1,7 +1,5 @@
-import {regEmail} from './module.js';
-
 $(function(){
-    const onJoin = () => {
+    const onJoinMemberShip = () => {
         $('#insert-btn').on('click', () => {
             location.href=`/join`;
         })
@@ -13,7 +11,5 @@ $(function(){
         })
     }
 
-    console.log(regEmail("pose1358@naver.com"));
-
-    onJoin();
+    onJoinMemberShip();
 })
