@@ -52,4 +52,32 @@ public class UserController {
                 .code(ResCommonCode.SUCCESS)
                 .build();
     }
+
+    /**
+     * 아이디 중복 검사
+     * @param userVo
+     * @return
+     */
+    @PostMapping(value="/api/selectId", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResCommonVo selectId(@RequestBody UserVo userVo){
+
+        return ResCommonVo.builder()
+                .result(userService.selectId(userVo))
+                .code(ResCommonCode.SUCCESS)
+                .build();
+    }
+
+    /**
+     * 닉네임 중복 검사
+     * @param userVo
+     * @return
+     */
+    @PostMapping(value="/api/selectNickname", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResCommonVo selectNickname(@RequestBody UserVo userVo){
+
+        return ResCommonVo.builder()
+                .result(userService.selectNickname(userVo))
+                .code(ResCommonCode.SUCCESS)
+                .build();
+    }
 }

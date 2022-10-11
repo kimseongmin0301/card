@@ -17,4 +17,18 @@ public interface UserMapper {
      * @param userVo
      */
     void joinUser(UserVo userVo);
+
+    /**
+     * 아이디 중복 검사 쿼리
+     * @param userVo
+     * @return
+     */
+    int selectId(UserVo userVo);
+
+    /**
+     * 닉네임 중복 검사 쿼리
+     * @param userVo
+     * @return
+     */
+    int selectNickname(UserVo userVo);
 }

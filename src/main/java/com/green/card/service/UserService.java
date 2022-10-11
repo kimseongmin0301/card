@@ -24,4 +24,28 @@ public class UserService {
 
         return resultMap;
     }
+
+    /**
+     * 아이디 중복검사
+     * @param userVo
+     * @return
+     */
+    public Map<String, Object> selectId(UserVo userVo){
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("id", userMapper.selectId(userVo));
+
+        return resultMap;
+    }
+
+    /**
+     * 닉네임 중복검사
+     * @param userVo
+     * @return
+     */
+    public Map<String, Object> selectNickname(UserVo userVo){
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("nickname", userMapper.selectNickname(userVo));
+
+        return resultMap;
+    }
 }
