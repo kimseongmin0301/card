@@ -37,4 +37,9 @@ public interface UserMapper {
      * @param userVo
      */
     void insertMember(UserVo userVo);
+
+    /**
+     * 로그인 쿼리
+     */
+
 }

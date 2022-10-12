@@ -56,4 +56,8 @@ public class UserService {
     public void insertUser(UserVo userVo){
         userMapper.insertMember(userVo);
     }
+
+    /**
+     *
+     */
 }

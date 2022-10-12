@@ -37,4 +37,12 @@
         FROM   tb_user
         WHERE  user_nickname = #{userNickname}
     </select>
+
+    <select id="selectLogin" parameterType="com.green.card.vo.UserVo" resultType="com.green.card.vo.UserVo">
+        SELECT          user_id
+                ,       user_pw
+        FROM            tb_user
+        WHERE           user_id = #{userId}
+        AND             user_pw = #{userPw}
+    </select>
 </mapper>
