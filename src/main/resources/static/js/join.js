@@ -149,30 +149,39 @@ $(function () {
                     isEmpty.pw = false;
                 }
             }
+            Reconfirm();
         })
+        onReconfirm();
+    }
 
-        // 비밀번호 재확인
-        $('#pw2').on("Propertychange keyup paste input", () => {
-            let pw2 = $('#pw2').val();
+    // 비번 재확인
+    const Reconfirm = () => {
+        let pw2 = $('#pw2').val();
 
-            if(pw2.length == 0){
-                $('#pw2Msg').html("")
+        if(pw2.length == 0){
+            $('#pw2Msg').html("")
+            isEmpty.pw2 = false;
+        }else {
+            if ($('#pw').val() == pw2) {
+                $('#pw2Msg').css({
+                    "color": "green"
+                })
+                $('#pw2Msg').html("일치합니다.")
+                isEmpty.pw2 = true;
+            } else {
+                $('#pw2Msg').css({
+                    "color": "red"
+                })
+                $('#pw2Msg').html("비밀번호를 다시 입력해주세요")
                 isEmpty.pw2 = false;
-            }else{
-                if($('#pw').val() == pw2){
-                    $('#pw2Msg').css({
-                        "color":"green"
-                    })
-                    $('#pw2Msg').html("일치합니다.")
-                    isEmpty.pw2 = true;
-                }else{
-                    $('#pw2Msg').css({
-                        "color":"red"
-                    })
-                    $('#pw2Msg').html("비밀번호를 다시 입력해주세요")
-                    isEmpty.pw2 = false;
-                }
             }
+        }
+    }
+
+    // 비밀번호 재확인
+    const onReconfirm = () => {
+        $('#pw2').on("Propertychange keyup paste input", () => {
+            Reconfirm();
         })
     }
 
