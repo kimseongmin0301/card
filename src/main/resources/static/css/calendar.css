@@ -1,0 +1,108 @@
+.calendar {
+    width: 360px;
+    margin: 0 auto;
+    font-family:"NotoSansR"
+}
+
+.calendar .calendar-title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 78px;
+}
+
+.calendar .calendar-title .year-month{
+    display: flex;
+    text-align: center;
+    line-height:1;
+}
+
+.calendar .calendar-title .go-prev,
+.calendar .calendar-title .go-next{
+    width:50px;
+    height:78px;
+    font-size:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.calendar .calendar-title .go-prev::before,
+.calendar .calendar-title .go-next::before{
+    content: "";
+    display: block;
+    width: 20px;
+    height: 20px;
+    border:solid #000;
+    border-width: 3px 3px 0 0;
+    transition: border 0.1s;
+}
+
+.calendar .calendar-title .go-prev:hover::before,
+.calendar .calendar-title .go-next:hover::before{
+    border-color:#ed2a61;
+}
+
+.calendar .calendar-title .go-prev::before{
+    transform:rotate(-135deg);
+}
+
+.calendar .calendar-title .go-next::before{
+    transform:rotate(45deg);
+}
+
+.calendar .cal{
+    padding-top:40px;
+    position:relative;
+    margin:0 auto;
+}
+
+.calendar .cal .days {
+    display:flex;
+    margin-bottom:20px;
+    padding-bottom:20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.calendar .cal::after{
+    top:368px;
+}
+
+.calendar .cal .day{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    width:calc(100% / 7);
+    color:#212529;
+    font-size :12px;
+    text-align:center;
+    border-radius:5px;
+}
+
+.today {background: rgb(242 242 242);}
+
+.calendar .cal .dates{
+    display:flex;
+    flex-flow:wrap;
+    height:600px;
+}
+
+.calendar .cal .day:nth-child(7n){
+    color:#3c6ffa;
+}
+.calendar .cal .day:nth-child(7n+1){
+    color:#ed2a61;
+}
+.calendar .cal .day.disable{
+    color:#b8b8b8;
+}
+.nav-btn{
+    cursor: pointer;
+}
+
+.date:hover{
+    background: #DEE7EF;
+    cursor: pointer;
+}
