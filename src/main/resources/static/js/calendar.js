@@ -1,6 +1,13 @@
 $(function () {
     "use strict"
 
+    const pagination = {
+        page: 1,
+        size: 6,
+        count: 5,
+        date: ''
+    }
+
     // 날짜정보 Get
     let date = new Date();
     let utc = date.getTime() + date.getTimezoneOffset() * 60 * 1000;
@@ -50,10 +57,11 @@ $(function () {
             $('.dates').append(`<div class="day date disable" id="next-${i}" name="date" data-date="${(currentMonth+2)%12==1?currentYear+1:currentYear}-${(currentMonth+2)%12==0?12:(currentMonth+2)%12}-${i}">` + i + `</div>`);
         }
 
+
         // 오늘 날짜 표시
-        if (today.getFullYear() == currentYear && today.getMonth() == currentMonth) {
+        if (today.getFullYear() == currentYear && today.getMonth() + 1 == currentMonth + 1) {
             let todayDate = today.getDate();
-            $(`#today-${todayDate}`).addClass('today');
+            $(`#present-${todayDate}`).addClass('today');
         }
 
         dateClick();
@@ -79,15 +87,95 @@ $(function () {
         closeClick();
     }
 
-    const selectList = (e) => {
+    // 리스트 출력
+
+    const columns = ['content', 'regDt']
+
+    const isPagination = (data = []) => {
+        $('.schedule-list').empty();
+        let str = '';
+        data.map((value) => {
+            str += `<div class="p-2 schedule" id="schedule-${value['idx']}">`
+            columns.map((key) => { str += `<div class="schedule-date">${value[key]}</div>` })
+            str += `</div>`
+        })
+        $('.schedule-list').append(str)
+
+        let schedule = $('.schedule .schedule-date:nth-child(2n)');
+        schedule.addClass('tx-r')
+    }
+
+    const selectList = () => {
         $.ajax({
             url: `/api/schedule`,
             type: `post`,
             contentType: 'application/json',
-            data: JSON.stringify({"date": e}),
-            success: e => {
-                console.log(e);
+            data: JSON.stringify(pagination),
+            success: data => {
+                isPagination(data.result.List);
+                renderPagination(data.result.count)
             }
+        })
+    }
+
+    const renderPagination = (e) => {
+        let page = pagination.page
+        let countList = pagination.size;
+        let countPage = pagination.count;
+
+        let totalCount = e;
+
+        let totalPage = Math.floor(totalCount / countList);
+        if(totalCount % countList > 0){
+            totalPage++;
+        }
+
+        if (totalPage < page) {
+            page = totalPage;
+        }
+        let startPage = Math.floor((page - 1) / 5) * 5 + 1;
+        let endPage = startPage + countPage - 1;
+
+        if (endPage > totalPage) {
+            endPage = totalPage;
+        }
+
+        $('.page-num').empty();
+
+        if(endPage != 0) {
+            let str = '';
+            str += `<div id="prev"><</div>`
+            for (let i = startPage; i <= endPage; i++) {
+                str += `<div class="page" id="page-${i}">${i}</div>`
+            }
+            str += `<div id="next">></div>`
+            $('.page-num').append(str);
+        }
+
+        $('.page').on('click', (e) => {
+            let temp = e.target.innerText;
+            pagination.page = temp;
+
+            selectList();
+        })
+
+        $('#next').on('click', () => {
+            pagination.page = Math.ceil((pagination.page) / 5) * 5 + 1;
+
+            if(pagination.page > totalPage) {
+                pagination.page = Math.floor(totalPage / 5) * 5 + 1;
+            }
+            console.log(totalPage)
+            selectList();
+        })
+
+        $('#prev').on('click', () => {
+            pagination.page = startPage - 5;
+            if(pagination.page < 1) {
+                pagination.page = 1
+            }
+
+            selectList();
         })
     }
 
@@ -105,7 +193,8 @@ $(function () {
     const dateClick = () => {
         $(".date").on("click", e => {
             modalOn()
-            selectList(e.target.dataset.date)
+            pagination.date = e.target.dataset.date;
+            selectList()
             $('#date-title').text(e.target.dataset.date)
         })
     }

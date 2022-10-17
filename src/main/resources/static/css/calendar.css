@@ -106,3 +106,11 @@
     background: #DEE7EF;
     cursor: pointer;
 }
+
+.tx-r{
+    text-align: right;
+}
+
+.page-num {
+    display: flex;
+}

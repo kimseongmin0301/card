@@ -3,10 +3,21 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.card.mapper.ScheduleMapper">
-<select id="selectList" resultType="com.green.card.vo.ScheduleVo" parameterType="com.green.card.vo.ScheduleVo">
-        SELECT          content
-                ,       date_format(reg_dt, '%Y-%m-%d') regDt
-        FROM            tb_schedule
-        WHERE           date = #{date}
-</select>
+        <sql id="scheduleListSql">
+                SELECT          idx
+                     ,          content
+                     ,          date_format(reg_dt, '%Y-%m-%d') regDt
+                FROM            tb_schedule
+                WHERE           date = #{date}
+        </sql>
+
+        <select id="selectList" resultType="com.green.card.vo.ScheduleVo" parameterType="com.green.card.vo.ReqPageVo">
+            <include refid="scheduleListSql" />
+            <include refid="commonSql.pagingSuffix" />
+        </select>
+
+        <select id="selectScheduleCount" parameterType="com.green.card.vo.ReqPageVo" resultType="java.lang.Integer">
+            SELECT count(*)
+            FROM (<include refid="scheduleListSql"/>) as A
+        </select>
 </mapper>
