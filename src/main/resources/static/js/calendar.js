@@ -1,12 +1,14 @@
+document.title = 'Calendar'
+
 $(function () {
     "use strict"
-
     const pagination = {
         page: 1,
         size: 6,
         count: 5,
         date: '',
-        selector: 0
+        selector: 0,
+        lastPage: 0
     }
 
     // 날짜정보 Get
@@ -108,13 +110,13 @@ $(function () {
 
     const selectList = () => {
         $.ajax({
-            url: `/api/schedule`,
+            url: `/groovy/api/schedule`,
             type: `post`,
             contentType: 'application/json',
             data: JSON.stringify(pagination),
             success: data => {
                 isPagination(data.result.List);
-                renderPagination(data.result.count)
+                renderPagination(data.result.count);
             }
         })
     }
@@ -141,6 +143,12 @@ $(function () {
             endPage = totalPage;
         }
 
+        if(totalCount % countList === 0) {
+            pagination.lastPage = totalPage + 1;
+        } else{
+            pagination.lastPage = totalPage;
+        }
+
         $('.page-num').empty();
 
         if(endPage != 0) {
@@ -151,7 +159,8 @@ $(function () {
             for (let i = startPage; i <= endPage; i++) {
                 str += `<div class="page page-selector" id="page-${i}">${i}</div>`
             }
-            if(pagination.page < (Math.floor(totalPage / 5) * 5 + 1)) {
+
+            if(endPage < Math.floor(totalPage / 5) * 5 + 1) {
                 str += `<div id="next" class="page-selector">▶</div>`
             }
             $('.page-num').append(str);
@@ -185,6 +194,78 @@ $(function () {
         $(`#page-${pagination.page}`).addClass("select");
     }
 
+    const scheduleAdd = () => {
+        $('.plus-area').on('click', () => {
+            let str = '';
+            let btn = '';
+            $('.schedule-list').empty();
+            $('.page-num').empty();
+            str += `<textarea id="insert-schedule" style="outline:none; resize:none; color:black; text-shadow:none; border-radius: 10px; width:350px; height:320px; text-indent: 10px" maxlength="500"></textarea>`
+            btn += `<input type="button" id="insert-btn" class="btn" value="등록" style="margin:0 10px; background: white; border:1px solid black;"/>
+                    <input type="button" id="cancel-btn" class="btn" value="취소" style="margin:0 10px; background: white; border:1px solid black;"/>`
+
+            $('.schedule-list').append(str);
+            $('.page-num').append(btn);
+
+            $('#cancel-btn').on('click', () => {
+                $('.schedule-list').empty();
+                $('.page-num').empty();
+
+                selectList()
+            })
+
+            $('#insert-btn').on('click', () => {
+                pagination.page = pagination.lastPage;
+
+                onInsert();
+            })
+        })
+    }
+
+    const onInsert = () => {
+        if($('#insert-schedule').val() !== '') {
+            $.ajax({
+                url: `/groovy/api/insert`,
+                type: `put`,
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    "content": $('#insert-schedule').val(),
+                    "user_id": '',
+                    "date": $('#date-title').text()
+                }),
+                success: () => {
+                    $('.schedule-list').empty();
+                    $('.page-num').empty();
+
+                    selectList()
+                }
+            })
+        } else{
+            $('.schedule-list').empty();
+            $('.page-num').empty();
+
+            selectList()
+        }
+    }
+    // TODO 디테일작업
+    const onDetail = () => {
+        $('.schedule-list').on('click', (e) => {
+
+
+            let text = '';
+            let btns = '';
+            $('.schedule-list').empty();
+            $('.page-num').empty();
+            text += `<textarea id="insert-schedule" style="outline:none; resize:none; color:black; text-shadow:none; border-radius: 10px; width:350px; height:320px; text-indent: 10px" maxlength="500"></textarea>`
+            btns += `<input type="button" id="insert-btn" class="btn" value="등록" style="margin:0 10px; background: white; border:1px solid black;"/>
+                    <input type="button" id="cancel-btn" class="btn" value="취소" style="margin:0 10px; background: white; border:1px solid black;"/>`
+
+            $('.schedule-list').append(text);
+            $('.page-num').append(btns);
+        })
+    }
+    onDetail();
+
     const modalOn = () => {
         $('#modal').css({
             "display": "flex"
@@ -200,6 +281,7 @@ $(function () {
         $(".date").on("click", e => {
             modalOn()
             pagination.date = e.target.dataset.date;
+            pagination.page = 1;
             selectList()
             $('#date-title').text(e.target.dataset.date)
         })
@@ -227,4 +309,7 @@ $(function () {
     // calendar
     onClickBtn();
     renderCalendar(thisMonth);
+
+    //insert
+    scheduleAdd();
 })

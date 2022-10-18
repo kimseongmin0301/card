@@ -1,5 +1,6 @@
 import {autoHyphen, regEmail, regName, regId, regPw, regNickname} from "./module.js";
 
+document.title = 'Join MemberShip'
 $(function () {
     const isEmpty = {
         id: false,
@@ -68,7 +69,7 @@ $(function () {
     // 아이디 검색
     const selectId = () => {
         $.ajax({
-            url: `/api/selectId`,
+            url: `/groovy/api/selectId`,
             type: `post`,
             contentType: 'application/json',
             data: JSON.stringify({"userId": $('#id').val()}),
@@ -231,7 +232,7 @@ $(function () {
     // 닉네임 중복 검사
     const selectNickname = () => {
         $.ajax({
-            url: `/api/selectNickname`,
+            url: `/groovy/api/selectNickname`,
             type: `post`,
             contentType: 'application/json',
             data: JSON.stringify({"userNickname": $('#nickname').val()}),
@@ -270,7 +271,7 @@ $(function () {
     // 이메일 중복검사
     const selectEmail = () => {
         $.ajax({
-            url: `/api/selectMail`,
+            url: `/groovy/api/selectMail`,
             type: `post`,
             contentType: 'application/json',
             data: JSON.stringify({"userEmail": $('#email').val()}),
@@ -319,7 +320,7 @@ $(function () {
         let email = $('#email').val();
 
         $.ajax({
-            url: `/api/mail`,
+            url: `/groovy/api/mail`,
             type: `post`,
             contentType: 'application/json',
             data: JSON.stringify({"email": email}),
@@ -406,7 +407,7 @@ $(function () {
         }
 
         $.ajax({
-            url: `/register`,
+            url: `/groovy/register`,
             type: `post`,
             contentType: 'application/json',
             data: JSON.stringify(data),

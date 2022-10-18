@@ -1,7 +1,8 @@
+document.title = 'Groovy'
 $(function(){
     const onJoinMemberShip = () => {
         $('#insert-btn').on('click', () => {
-            location.href=`/join`;
+            location.href=`/groovy/join`;
         })
     }
 

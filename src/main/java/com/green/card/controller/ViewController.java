@@ -2,12 +2,14 @@ package com.green.card.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/groovy")
 public class ViewController {
-    @GetMapping("/index1")
+    @GetMapping("/calendar")
     public String index() {
-        return "index1";
+        return "calendar";
     }
 
     @GetMapping("/index2")
@@ -15,15 +17,11 @@ public class ViewController {
         return "index2";
     }
 
-    @GetMapping("/test")
-    public String test() {
-        return "test";
-    }
-
-    @GetMapping("/home")
+    @GetMapping("")
     public String main() {
         return "index";
     }
+
     @GetMapping("/join")
     public String join() {
         return "join";

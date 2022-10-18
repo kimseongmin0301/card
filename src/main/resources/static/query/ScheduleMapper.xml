@@ -20,4 +20,9 @@
             SELECT count(*)
             FROM (<include refid="scheduleListSql"/>) as A
         </select>
+
+        <insert id="scheduleAdd" parameterType="com.green.card.vo.ScheduleVo">
+            insert into tb_schedule(content, user_id, date)
+            values(#{content}, #{userId}, #{date})
+        </insert>
 </mapper>
