@@ -5,7 +5,8 @@ $(function () {
         page: 1,
         size: 6,
         count: 5,
-        date: ''
+        date: '',
+        selector: 0
     }
 
     // 날짜정보 Get
@@ -144,16 +145,20 @@ $(function () {
 
         if(endPage != 0) {
             let str = '';
-            str += `<div id="prev"><</div>`
-            for (let i = startPage; i <= endPage; i++) {
-                str += `<div class="page" id="page-${i}">${i}</div>`
+            if(pagination.page > 5) {
+                str += `<div id="prev" class="page-selector">◀</div>`
             }
-            str += `<div id="next">></div>`
+            for (let i = startPage; i <= endPage; i++) {
+                str += `<div class="page page-selector" id="page-${i}">${i}</div>`
+            }
+            if(pagination.page < (Math.floor(totalPage / 5) * 5 + 1)) {
+                str += `<div id="next" class="page-selector">▶</div>`
+            }
             $('.page-num').append(str);
         }
 
         $('.page').on('click', (e) => {
-            let temp = e.target.innerText;
+            const temp = e.target.innerText;
             pagination.page = temp;
 
             selectList();
@@ -165,18 +170,19 @@ $(function () {
             if(pagination.page > totalPage) {
                 pagination.page = Math.floor(totalPage / 5) * 5 + 1;
             }
-            console.log(totalPage)
             selectList();
         })
 
         $('#prev').on('click', () => {
             pagination.page = startPage - 5;
+
             if(pagination.page < 1) {
                 pagination.page = 1
             }
-
             selectList();
         })
+
+        $(`#page-${pagination.page}`).addClass("select");
     }
 
     const modalOn = () => {

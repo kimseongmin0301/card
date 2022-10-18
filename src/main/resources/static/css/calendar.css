@@ -113,4 +113,23 @@
 
 .page-num {
     display: flex;
+    justify-content: center;
+}
+
+.page-selector{
+    margin: 5px;
+    padding: 5px;
+    color: white;
+    font-size:25px;
+    cursor: pointer;
+}
+
+.select{
+    color: yellow;
+    font-weight: bold;
+}
+
+.page-selector:hover:not(.select){
+    color: rebeccapurple;
+    text-shadow: 1px 1px mediumpurple;
 }
