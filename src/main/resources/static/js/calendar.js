@@ -261,12 +261,14 @@ $(function () {
     //TODO 수정 되는데 blur or focusout 처리해줘야함
     const onUpdate = () => {
         $(`.schedule-list`).click((e) => {
+            const areaText = $(e.target).parents('.schedule');
+            const idx = areaText.attr('id').split('-')[1];
             $.ajax({
                 url: `/groovy/api/update`,
                 type: `put`,
                 data: JSON.stringify({
                     "content": $(`.schedule-content`).text(),
-                    "idx": 181
+                    "idx": idx
                 }),
                 contentType: 'application/json',
                 success: e => {
