@@ -27,8 +27,17 @@ public class ScheduleController {
                 .build();
     }
 
-    @PutMapping(value="/api/insert", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value="/api/insert", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public void scheduleAdd(@RequestBody ScheduleVo scheduleVo){
         scheduleService.scheduleAdd(scheduleVo);
+    }
+
+    @PutMapping(value="/api/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResCommonVo updateContent(@RequestBody ScheduleVo scheduleVo){
+
+        return ResCommonVo.builder()
+                .result(scheduleService.updateContent(scheduleVo))
+                .code(ResCommonCode.SUCCESS)
+                .build();
     }
 }

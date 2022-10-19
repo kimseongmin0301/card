@@ -28,4 +28,6 @@ public interface ScheduleMapper {
      * @param scheduleVo
      */
     void scheduleAdd(ScheduleVo scheduleVo);
+
+    int updateContent(ScheduleVo scheduleVo);
 }

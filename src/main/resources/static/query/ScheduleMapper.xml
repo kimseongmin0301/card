@@ -25,4 +25,11 @@
             insert into tb_schedule(content, user_id, date)
             values(#{content}, #{userId}, #{date})
         </insert>
+
+
+        <update id="updateContent">
+            UPDATE  tb_schedule
+            SET     content = #{content}, mod_dt = now()
+            where   idx = #{idx}
+        </update>
 </mapper>

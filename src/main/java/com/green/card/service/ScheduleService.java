@@ -37,4 +37,11 @@ public class ScheduleService {
     public void scheduleAdd(ScheduleVo scheduleVo){
         scheduleMapper.scheduleAdd(scheduleVo);
     }
+
+    public Map<String, Object> updateContent(ScheduleVo scheduleVo){
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("content", scheduleMapper.updateContent(scheduleVo));
+
+        return resultMap;
+    }
 }

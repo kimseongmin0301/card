@@ -99,7 +99,7 @@ $(function () {
         let str = '';
         data.map((value) => {
             str += `<div class="p-2 schedule" id="schedule-${value['idx']}">`
-            columns.map((key) => { str += `<div class="schedule-date">${value[key]}</div>` })
+            columns.map((key) => { str += `<div class="schedule-date schedule-${key}">${value[key]}</div>` })
             str += `</div>`
         })
         $('.schedule-list').append(str)
@@ -226,7 +226,7 @@ $(function () {
         if($('#insert-schedule').val() !== '') {
             $.ajax({
                 url: `/groovy/api/insert`,
-                type: `put`,
+                type: `post`,
                 contentType: 'application/json',
                 data: JSON.stringify({
                     "content": $('#insert-schedule').val(),
@@ -247,24 +247,35 @@ $(function () {
             selectList()
         }
     }
-    // TODO 디테일작업
+    // TODO 커서위치 작업
     const onDetail = () => {
-        $('.schedule-list').on('click', (e) => {
-
-
-            let text = '';
-            let btns = '';
-            $('.schedule-list').empty();
-            $('.page-num').empty();
-            text += `<textarea id="insert-schedule" style="outline:none; resize:none; color:black; text-shadow:none; border-radius: 10px; width:350px; height:320px; text-indent: 10px" maxlength="500"></textarea>`
-            btns += `<input type="button" id="insert-btn" class="btn" value="등록" style="margin:0 10px; background: white; border:1px solid black;"/>
-                    <input type="button" id="cancel-btn" class="btn" value="취소" style="margin:0 10px; background: white; border:1px solid black;"/>`
-
-            $('.schedule-list').append(text);
-            $('.page-num').append(btns);
+        $('.schedule-list').click((e) => {
+            let areaText = $(e.target).parents('.schedule').children('.schedule-content');
+            areaText.attr("contenteditable","true");
+            areaText.focus();
         })
     }
     onDetail();
+
+
+    //TODO 수정 되는데 blur or focusout 처리해줘야함
+    const onUpdate = () => {
+        $(`.schedule-list`).click((e) => {
+            $.ajax({
+                url: `/groovy/api/update`,
+                type: `put`,
+                data: JSON.stringify({
+                    "content": $(`.schedule-content`).text(),
+                    "idx": 181
+                }),
+                contentType: 'application/json',
+                success: e => {
+                    // e.target.id.split("-")[1]
+                }
+            })
+        })
+    }
+    onUpdate();
 
     const modalOn = () => {
         $('#modal').css({
@@ -292,14 +303,14 @@ $(function () {
         })
     }
 
-    // const layOutOff = () => {
-    //     $('#modal').on("click", e => {
-    //         const evTarget = e.target
-    //         if(evTarget.classList.contains("modal-overlay")) {
-    //             modalOff()
-    //         }
-    //     })
-    // }
+    const layOutOff = () => {
+        $('#modal').on("click", e => {
+            const evTarget = e.target
+            if(evTarget.classList.contains("modal-overlay")) {
+                modalOff()
+            }
+        })
+    }
 
     // modal
     dateClick();
