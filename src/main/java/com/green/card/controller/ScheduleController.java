@@ -7,6 +7,7 @@ import com.green.card.vo.ResCommonVo;
 import com.green.card.vo.ScheduleVo;
 import com.green.card.vo.UserVo;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,6 +38,15 @@ public class ScheduleController {
 
         return ResCommonVo.builder()
                 .result(scheduleService.updateContent(scheduleVo))
+                .code(ResCommonCode.SUCCESS)
+                .build();
+    }
+
+    @DeleteMapping(value="/api/delete", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResCommonVo deleteSchedule(@RequestBody ScheduleVo scheduleVo){
+
+        return ResCommonVo.builder()
+                .result(scheduleService.deleteSchedule(scheduleVo))
                 .code(ResCommonCode.SUCCESS)
                 .build();
     }

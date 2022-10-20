@@ -26,10 +26,14 @@
             values(#{content}, #{userId}, #{date})
         </insert>
 
-
         <update id="updateContent">
             UPDATE  tb_schedule
             SET     content = #{content}, mod_dt = now()
             where   idx = #{idx}
         </update>
+
+        <delete id="deleteSchedule">
+            DELETE FROM tb_schedule
+            WHERE   idx = #{idx}
+        </delete>
 </mapper>

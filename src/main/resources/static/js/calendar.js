@@ -99,7 +99,8 @@ $(function () {
         let str = '';
         data.map((value) => {
             str += `<div class="p-2 schedule" id="schedule-${value['idx']}">`
-            columns.map((key) => { str += `<div class="schedule-date schedule-${key}">${value[key]}</div>` })
+            columns.map((key) => { str += `<div class="schedule-date schedule-${key}" id="schedule-content-${value['idx']}">${value[key]}</div>` })
+            str += `<div class="delete-area" id="delete-${value['idx']}"><button class="delete-btn" id="delete-btn-${value['idx']}">❌</button></div>`
             str += `</div>`
         })
         $('.schedule-list').append(str)
@@ -117,6 +118,7 @@ $(function () {
             success: data => {
                 isPagination(data.result.List);
                 renderPagination(data.result.count);
+                $('.schedule-content').css({"text-overflow":"ellipsis"})
             }
         })
     }
@@ -222,6 +224,7 @@ $(function () {
         })
     }
 
+    // 글 입력
     const onInsert = () => {
         if($('#insert-schedule').val() !== '') {
             $.ajax({
@@ -247,37 +250,69 @@ $(function () {
             selectList()
         }
     }
+
     // TODO 커서위치 작업
     const onDetail = () => {
-        $('.schedule-list').click((e) => {
+        $('.schedule-list').dblclick((e) => {
             let areaText = $(e.target).parents('.schedule').children('.schedule-content');
+            let targetId = areaText.attr('id');
+
             areaText.attr("contenteditable","true");
-            areaText.focus();
+            areaText.addClass("cursor-text");
+            areaText.css({"text-overflow":""})
+
+            $(areaText).keypress(e => {
+                if (e.keyCode == 13)
+                    e.preventDefault();
+            });
+
+            areaText.focus()
+                .focusout(e => {
+                    onUpdate(areaText, targetId);
+                    areaText.attr("contenteditable","false");
+                    areaText.removeClass("cursor-text")
+                    areaText.css({"text-overflow":"ellipsis"})
+                })
         })
     }
-    onDetail();
 
-
-    //TODO 수정 되는데 blur or focusout 처리해줘야함
-    const onUpdate = () => {
-        $(`.schedule-list`).click((e) => {
-            const areaText = $(e.target).parents('.schedule');
-            const idx = areaText.attr('id').split('-')[1];
-            $.ajax({
-                url: `/groovy/api/update`,
-                type: `put`,
-                data: JSON.stringify({
-                    "content": $(`.schedule-content`).text(),
-                    "idx": idx
-                }),
-                contentType: 'application/json',
-                success: e => {
-                    // e.target.id.split("-")[1]
-                }
-            })
+    // 글 수정
+    const onUpdate = (target, targetId) => {
+        const idx = targetId.split('-')[2];
+        $.ajax({
+            url: `/groovy/api/update`,
+            type: `put`,
+            data: JSON.stringify({
+                "content": target.text(),
+                "idx": idx
+            }),
+            contentType: 'application/json',
+            success: data => {
+                selectList()
+            }
         })
     }
-    onUpdate();
+
+    const onDelete = () => {
+        $('.schedule-list').on('click', (e) => {
+            let id = $(e.target).attr('id').split('-')[0];
+            console.log(id);
+            if(id === 'delete'){
+                const idx = $(e.target).attr('id').split('-')[2];
+                console.log(idx);
+                $.ajax({
+                    url: `/groovy/api/delete`,
+                    type: `delete`,
+                    data: JSON.stringify({"idx": idx}),
+                    contentType: `application/json`,
+                    success: data => {
+                        selectList();
+                    }
+                })
+            }
+        })
+    }
+    onDelete(); // delete
 
     const modalOn = () => {
         $('#modal').css({
@@ -305,14 +340,14 @@ $(function () {
         })
     }
 
-    const layOutOff = () => {
-        $('#modal').on("click", e => {
-            const evTarget = e.target
-            if(evTarget.classList.contains("modal-overlay")) {
-                modalOff()
-            }
-        })
-    }
+    // const layOutOff = () => {
+    //     $('#modal').on("click", e => {
+    //         const evTarget = e.target
+    //         if(evTarget.classList.contains("modal-overlay")) {
+    //             modalOff()
+    //         }
+    //     })
+    // }
 
     // modal
     dateClick();
@@ -323,6 +358,7 @@ $(function () {
     onClickBtn();
     renderCalendar(thisMonth);
 
-    //insert
-    scheduleAdd();
+    //crud
+    scheduleAdd(); // insert
+    onDetail(); // select
 })

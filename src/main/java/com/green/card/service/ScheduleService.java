@@ -44,4 +44,11 @@ public class ScheduleService {
 
         return resultMap;
     }
+
+    public Map<String, Object> deleteSchedule(ScheduleVo scheduleVo){
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("content", scheduleMapper.deleteSchedule(scheduleVo));
+
+        return resultMap;
+    }
 }

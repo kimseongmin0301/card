@@ -30,4 +30,6 @@ public interface ScheduleMapper {
     void scheduleAdd(ScheduleVo scheduleVo);
 
     int updateContent(ScheduleVo scheduleVo);
+
+    int deleteSchedule(ScheduleVo scheduleVo);
 }
