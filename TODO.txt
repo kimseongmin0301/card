@@ -3,5 +3,6 @@
 10/11 : JoinBtn 클릭시 입력안된곳으로 스크롤 이동 - clear
 10/12 : 로그인하기, 로그인 다음 화면구상 - clear
 10/12 - 10/18 : schedule, 페이징 - clear
-10/18 : schedule Detail 작업
-10/19 : Detail 요소 불러오기 +(커서 위치), update 작성
+10/18 : schedule Detail 작업 - clear
+10/19 : Detail 요소 불러오기 +(커서 위치), update 작성 - clear
+10/21 : schedule 작업 끝..

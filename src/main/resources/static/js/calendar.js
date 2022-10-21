@@ -38,7 +38,7 @@ $(function () {
         let nextDay = endDay.getDay();
 
         // 년, 월 출력
-        $('.year-month').text(currentYear + '.' + (currentMonth + 1));
+        $('.year-month').html(currentYear + '.' + (currentMonth + 1));
 
         // 화면 랜더링
         $('.dates').empty();
@@ -46,18 +46,28 @@ $(function () {
         // 저번달
         if (prevDay != 6) {
             for (let i = prevDate - prevDay; i <= prevDate; i++) {
-                $('.dates').append(`<div class="day date prev disable" id="prev-${i}" name="date" data-date="${(currentMonth+1)%12==1?currentYear-1:currentYear}-${currentMonth%12==0?12:currentMonth%12}-${i}">` + i + `</div>`);
+                let str = '';
+                str += `<div class="day date prev disable" id="prev-${i}" name="date" data-date="${(currentMonth+1)%12==1?currentYear-1:currentYear}-${currentMonth%12==0?12:currentMonth%12}-${i}">` + i + `</div>`
+                $('.dates').append(str);
+                dateCnt($(`#prev-${i}`));
             }
         }
 
         // 이번달
         for (let i = 1; i <= nextDate; i++) {
-            $('.dates').append(`<div class="day date current" id='present-${i}' name="date" data-date="${currentYear}-${(currentMonth+1)%12==0?12:(currentMonth+1)%12}-${i}">` + i + `</div>`);
+            let str = '';
+            str += `<div class="day date current" id='present-${i}' name="date" data-date="${currentYear}-${(currentMonth+1)%12==0?12:(currentMonth+1)%12}-${i}">` + i + `</div>`
+            $('.dates').append(str);
+            dateCnt($(`#present-${i}`));
+
         }
 
         // 다음달
         for (let i = 1; i < 7 - nextDay; i++) {
-            $('.dates').append(`<div class="day date disable" id="next-${i}" name="date" data-date="${(currentMonth+2)%12==1?currentYear+1:currentYear}-${(currentMonth+2)%12==0?12:(currentMonth+2)%12}-${i}">` + i + `</div>`);
+            let str = '';
+            str += `<div class="day date disable" id="next-${i}" name="date" data-date="${(currentMonth+2)%12==1?currentYear+1:currentYear}-${(currentMonth+2)%12==0?12:(currentMonth+2)%12}-${i}">` + i + `</div>`
+            $('.dates').append(str);
+            dateCnt($(`#next-${i}`));
         }
 
 
@@ -76,6 +86,7 @@ $(function () {
         $('.go-prev').on('click', () => {
             thisMonth = new Date(currentYear, currentMonth - 1, 1);
             renderCalendar(thisMonth);
+
             // layOutOff();
         });
 
@@ -83,6 +94,7 @@ $(function () {
         $('.go-next').on('click', () => {
             thisMonth = new Date(currentYear, currentMonth + 1, 1);
             renderCalendar(thisMonth);
+
             // layOutOff();
         });
 
@@ -337,6 +349,7 @@ $(function () {
     const closeClick = () => {
         $(".close-area").on("click", e => {
             modalOff()
+            renderCalendar(thisMonth);
         })
     }
 
@@ -348,6 +361,23 @@ $(function () {
     //         }
     //     })
     // }
+
+    // 날짜별 데이터 카운터
+    const dateCnt = (e) => {
+        let date = e.data();
+        $.ajax({
+            url: `/groovy/api/scheduleCount`,
+            type: `post`,
+            data: JSON.stringify(date),
+            contentType:`application/json`,
+            success: cnt => {
+                if (cnt.result.dateCnt) {
+                    $(e).append(`<div id="date-cnt">${cnt.result.dateCnt}</div>`)
+                }
+            }
+        })
+    }
+
 
     // modal
     dateClick();
@@ -361,4 +391,6 @@ $(function () {
     //crud
     scheduleAdd(); // insert
     onDetail(); // select
+
+    // dateCnt();
 })

@@ -50,4 +50,13 @@ public class ScheduleController {
                 .code(ResCommonCode.SUCCESS)
                 .build();
     }
+
+    @PostMapping(value="/api/scheduleCount", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResCommonVo groupDateCnt(@RequestBody ScheduleVo scheduleVo){
+
+        return ResCommonVo.builder()
+                .result(scheduleService.groupDateCnt(scheduleVo))
+                .code(ResCommonCode.SUCCESS)
+                .build();
+    }
 }

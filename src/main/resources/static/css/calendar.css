@@ -11,6 +11,7 @@
     font-weight: 700;
     font-size: 48px;
     line-height: 78px;
+    position: relative;
 }
 
 .calendar .calendar-title .year-month{
@@ -197,4 +198,21 @@
 }
 .delete-btn:active{
     background-color: lightsalmon;
+}
+
+.date {
+    position: relative;
+}
+
+#date-cnt{
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    top: 10px;
+    left: 20px;
+    font-size: 14px;
+    background-color: #6900ff;
+    color: white;
+    font-weight: bolder;
+    border-radius: 100%;
 }

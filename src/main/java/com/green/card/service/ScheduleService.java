@@ -51,4 +51,11 @@ public class ScheduleService {
 
         return resultMap;
     }
+
+    public Map<String, Object> groupDateCnt(ScheduleVo scheduleVo){
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("dateCnt", scheduleMapper.groupDateCnt(scheduleVo));
+
+        return resultMap;
+    }
 }
