@@ -26,4 +26,9 @@ public class ViewController {
     public String join() {
         return "join";
     }
+
+    @GetMapping("/home")
+    public String home() {
+        return "home";
+    }
 }

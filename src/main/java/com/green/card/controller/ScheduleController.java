@@ -5,9 +5,7 @@ import com.green.card.service.ScheduleService;
 import com.green.card.vo.ReqPageVo;
 import com.green.card.vo.ResCommonVo;
 import com.green.card.vo.ScheduleVo;
-import com.green.card.vo.UserVo;
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
