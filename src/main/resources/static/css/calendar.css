@@ -138,11 +138,19 @@
 .plus-area{
     display: inline;
     float: right;
+    /*right:*/
     padding-right: 10px;
     margin-right: 10px;
     cursor: pointer;
-    text-shadow: 1px 1px 2px grey;
     color: white;
+}
+#modal .close-area:hover{
+    color:red;
+    transform: scale(1.1);
+}
+.plus-area:hover{
+    transform: scale(1.1);
+    color:red;
 }
 
 .schedule-date {
