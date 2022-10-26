@@ -307,20 +307,20 @@ $(function () {
 
     const onDelete = () => {
         $('.schedule-list').on('click', (e) => {
-            let id = $(e.target).attr('id').split('-')[0];
-            console.log(id);
-            if(id === 'delete'){
-                const idx = $(e.target).attr('id').split('-')[2];
-                console.log(idx);
-                $.ajax({
-                    url: `/groovy/api/delete`,
-                    type: `delete`,
-                    data: JSON.stringify({"idx": idx}),
-                    contentType: `application/json`,
-                    success: data => {
-                        selectList();
-                    }
-                })
+            if(e.target.id.split('-')[0] === 'delete') {
+                let id = $(e.target).attr('id').split('-')[0];
+                if (id === 'delete') {
+                    const idx = $(e.target).attr('id').split('-')[2];
+                    $.ajax({
+                        url: `/groovy/api/delete`,
+                        type: `delete`,
+                        data: JSON.stringify({"idx": idx}),
+                        contentType: `application/json`,
+                        success: data => {
+                            selectList();
+                        }
+                    })
+                }
             }
         })
     }
