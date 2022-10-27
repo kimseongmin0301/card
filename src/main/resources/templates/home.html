@@ -31,15 +31,17 @@
             </ul>
         </div>
     </nav>
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="margin: 50px 0 0 203px!important; padding-top: 36px!important;">
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="margin: 50px 0 0 203px!important;position:relative; padding-top: 36px!important;">
         <h2 style="padding-top: 36px; font-weight: bold">Home</h2>
-        <div class="my-4 w-100 home">
-            <h5>Today Weather</h5>
-            <div id="weather" class="p-2">
-                <span id="weathers"></span>
-                <span id="temp"></span>
+        <div class="my-4 w-100 home p-2">
+            <div id="today-weather">
+                <h3 id="weather-title">Today Weather / Clock</h3>
+                <div id="weather">
+                    <span id="weathers"></span>
+                    <span id="temp"></span>
+                </div>
             </div>
-            <h3 class="my-2" id="clock"></h3>
+            <span class="my-2" id="clock"></span>
             <h4 class="my-2">Today Schedule</h4>
             <div class="p-2" style="width: 600px;">
                 <div class="today-insert">
