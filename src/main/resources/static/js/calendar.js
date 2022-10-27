@@ -1,5 +1,3 @@
-document.title = 'Calendar'
-
 $(function () {
     "use strict"
     const pagination = {

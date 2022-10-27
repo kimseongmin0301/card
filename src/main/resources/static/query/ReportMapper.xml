@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.card.mapper.ReportMapper">
+
+    <sql id="monthGroup">
+        SELECT               DATE_FORMAT(STR_TO_DATE(date, '%Y-%m-%d'),'%b') month
+                    ,        COUNT(*)
+        FROM                 tb_schedule
+        GROUP BY             month
+    </sql> <!-- 월별 count -->
+
+
+    <sql id="weekGroup">
+
+
+    </sql>
+
+</mapper>
+
+
+
+
+
+
+
+

@@ -32,6 +32,16 @@ public class ViewController {
         return "home";
     }
 
+    @GetMapping("/canvas")
+    public String canvas() {
+        return "canvas";
+    }
+
+    @GetMapping("/report")
+    public String report() {
+        return "report";
+    }
+
     @GetMapping("/test")
     public String test() {
         return "test";

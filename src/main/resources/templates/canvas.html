@@ -4,7 +4,8 @@
       layout:decorate="~{common/base}"
 >
 <th:block layout:fragment="head">
-    <title>Home</title>
+    <link rel="stylesheet" href="/css/canvas.css">
+    <title>Canvas</title>
 </th:block>
 <body>
 <th:block layout:fragment="body">
@@ -18,7 +19,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link active" href="#">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-easel feather" viewBox="0 0 16 16">
                             <path d="M8 0a.5.5 0 0 1 .473.337L9.046 2H14a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-1.85l1.323 3.837a.5.5 0 1 1-.946.326L11.092 11H8.5v3a.5.5 0 0 1-1 0v-3H4.908l-1.435 4.163a.5.5 0 1 1-.946-.326L3.85 11H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h4.954L7.527.337A.5.5 0 0 1 8 0zM2 3v7h12V3H2z"/>
                         </svg><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
@@ -34,34 +35,38 @@
             </ul>
         </div>
     </nav>
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="margin: 50px 0 0 203px!important;position:relative; padding-top: 36px!important;">
-        <h2 style="padding-top: 36px; font-weight: bold">Home</h2>
-        <div class="my-4 w-100 home p-2">
-            <div id="today-weather">
-                <h3 id="weather-title">Today Weather</h3>
-                <div id="weather">
-                    <span id="weathers"></span>
-                    <span id="temp"></span>
-                </div>
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="margin: 50px 0 0 203px!important;position:relative; padding-top: 36px!important;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none">
+        <h2 style="padding-top: 36px; font-weight: bold">Canvas</h2>
+        <div class="my-4 w-100 c-body p-2">
+            <canvas></canvas>
+            <div class="btns">
+                <span style="font-weight: bolder">Pencil Width</span>
+                <input id="line-width" type="range" min="1" max="10" value="5" />
+                <button id="mode-btn">🎨 Draw</button>
+                <button id="destroy-btn">💣 Destroy</button>
+                <button id="eraser-btn">❌ Erase</button>
+                <label for="file">
+                    📷 Add Photo
+                    <input type="file" accept="image/*" id="file"/>
+                </label>
+                <button id="save">💾 Save image</button>
             </div>
-            <span class="my-2" id="clock"></span>
-            <h4 class="my-2">Today Schedule</h4>
-            <div class="p-2 my-4" style="width: 600px;">
-                <div class="today-insert">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
-                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                    </svg>
-                </div>
-                <div id="today-count"></div>
-                <div id="today-schedule" class="my-4">
-                </div>
+            <div class="color-options">
+                <input type="color" id="color" />
+                <div class="color-option" style="background-color:#000000;" data-color="#000000"></div>
+                <div class="color-option" style="background-color:#FFFFFF;" data-color="#FFFFFF"></div>
+                <div class="color-option" style="background-color:#FF0000;" data-color="#FF0000"></div>
+                <div class="color-option" style="background-color:#FF5E00;" data-color="#FF5E00"></div>
+                <div class="color-option" style="background-color:#FFE400;" data-color="#FFE400"></div>
+                <div class="color-option" style="background-color:#1DDB16;" data-color="#1DDB16"></div>
+                <div class="color-option" style="background-color:#0000FF;" data-color="#0000FF"></div>
+                <div class="color-option" style="background-color:#000080;" data-color="#000080"></div>
+                <div class="color-option" style="background-color:#8041D9;" data-color="#8041D9"></div>
+                <div class="color-option" style="background-color:#FF7EFD;" data-color="#FF7EFD"></div>
             </div>
         </div>
     </main>
-    <script src="/js/weather.js"></script>
-    <script src="/js/clock.js"></script>
-    <script src="/js/home.js"></script>
+    <script src="/js/canvas.js"></script>
 </th:block>
 </body>
 </html>

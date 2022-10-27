@@ -6,3 +6,8 @@
 10/18 : schedule Detail 작업 - clear
 10/19 : Detail 요소 불러오기 +(커서 위치), update 작성 - clear
 10/21 : schedule 작업 끝..
+~ 10/26 : home 화면 작업
+10/27 ~ : report 작업 - 개인 일주일, 월별 데이터 출력
+
+
+남은 일 : profile(회원정보수정, 탈퇴), login(비번 암호화), 관리자 form(chart, 회원관리)
