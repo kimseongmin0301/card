@@ -1,39 +1,114 @@
-let chart = new Chart(document.getElementById("report"), {
-    type: 'line',
-    data: {
-        labels: [1500,1600,1700,1750,1800,1850,1900,1950,1999,2050],
-        datasets: [{
-            data: [86,114,106,106,107,111,133,221,783,2478],
-            label: "Africa",
-            borderColor: "#3e95cd",
-            fill: false
-        }, {
-            data: [282,350,411,502,635,809,947,1402,3700,5267],
-            label: "Asia",
-            borderColor: "#8e5ea2",
-            fill: false
-        }, {
-            data: [168,170,178,190,203,276,408,547,675,734],
-            label: "Europe",
-            borderColor: "#3cba9f",
-            fill: false
-        }, {
-            data: [40,20,10,16,24,38,74,167,508,784],
-            label: "Latin America",
-            borderColor: "#e8c3b9",
-            fill: false
-        }, {
-            data: [6,3,2,2,7,26,82,172,312,433],
-            label: "North America",
-            borderColor: "#c45850",
-            fill: false
+$(function(){
+    $.ajax({
+        url:`/groovy/api/month`,
+        type:`get`,
+        dataType:`json`,
+        success: response => {
+            monthChart(response)
         }
-        ]
-    },
-    options: {
-        title: {
-            display: true,
-            text: 'World population per region (in millions)'
+    })
+
+    const monthChart = (response) => {
+        let today = new Date();
+        const month = today.getMonth()
+
+        const report = $('#report');
+
+        let xData = [];
+        for(let i=0; i<12; i++) {
+            let a = new Date(new Date().setMonth(month - 10 + i)).getFullYear()
+            let b = new Date(new Date().setMonth(month - 10 + i)).getMonth()
+            if(b == 0) b = 12;
+            xData[i] = `${a}-${b}`;
         }
+
+        let yData = [];
+        response.result.data.forEach(e => {
+            yData.push(e.month);
+        })
+
+        let chData = [];
+        let idx;
+        for(let i=0; i<xData.length; i++){
+            for(let j=0; j<yData.length; j++){
+                if(xData[i] === yData[j]){
+                    response.result.data.forEach((array,index)=> {
+                        if(array.month === yData[j]){
+                            idx = `${index}`;
+                            return false;
+                        }
+                    })
+
+                    chData[i] = response.result.data[idx].count;
+                    yData.splice(j,1);
+                    break;
+                }
+            }
+            if(!chData[i]){
+                chData[i] = 0;
+            }
+        }
+
+        new Chart(report, {
+            type: 'bar',
+            data: {
+                labels: xData,
+                datasets: [{
+                    data: chData,
+                    label: "월별 스케줄 건수",
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 205, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(201, 203, 207, 0.2)',
+                        'rgba(247, 123, 239, 0.2)',
+                        'rgba(0, 236, 255, 0.2)',
+                        'rgba(186, 218, 85, 0.2)',
+                        'rgba(170, 104, 0, 0.2)',
+                        'rgba(9, 255, 0, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)',
+                        'rgb(201, 203, 207)',
+                        'rgb(247, 123, 239)',
+                        'rgb(0, 236, 255)',
+                        'rgb(186, 218, 85)',
+                        'rgb(170, 104, 0)',
+                        'rgb(9, 255, 0)'
+                    ],
+                    fill: true,
+                    borderWidth: 1
+                },
+                ]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: '최근 1년 월별 스케줄 건수'
+                },
+                tooltips: {
+                    // 툴팁을 표현하는 방법
+                    // index, dataset, point, nearest(defalut), x, y
+                    mode: `index`,
+                    // 툴팁을 표현할 때, 근처일때 표현할 것인가 아닌가
+                    // true(defalut), false
+                    intersect: false,
+                },
+                hover: {
+                    mode: `index`,
+                    intersect: false,
+                },
+            },
+        });
     }
-});
+
+})
+

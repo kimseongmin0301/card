@@ -3,19 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.card.mapper.ReportMapper">
+    <select id="monthGroup" parameterType="com.green.card.vo.ReportVo" resultType="com.green.card.vo.ReportVo">
+        SELECT count(*) `count`, date_format(str_to_date(date,'%Y-%m-%d'),'%Y-%c') `month`
+        FROM  tb_schedule
+        WHERE DATE_FORMAT(str_to_date(date,'%Y-%m-%d'),'%Y-%m-%d') between date_sub(now(), interval 1 year) and now()
+        group by `month`
+    </select> <!-- 최근 1년 월별 데이터 -->
 
-    <sql id="monthGroup">
-        SELECT               DATE_FORMAT(STR_TO_DATE(date, '%Y-%m-%d'),'%b') month
-                    ,        COUNT(*)
-        FROM                 tb_schedule
-        GROUP BY             month
-    </sql> <!-- 월별 count -->
-
-
-    <sql id="weekGroup">
-
-
-    </sql>
 
 </mapper>
 
