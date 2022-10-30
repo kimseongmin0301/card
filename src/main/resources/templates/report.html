@@ -13,13 +13,13 @@
     <div class="position-sticky pt-3 sidebar-sticky" style="min-width:180px">
       <ul class="nav flex-column">
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="#">
+          <a class="nav-link" aria-current="page" href="/groovy/calendar">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home align-text-bottom" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
             Calendar
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link" href="/groovy/canvas">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-easel feather" viewBox="0 0 16 16">
               <path d="M8 0a.5.5 0 0 1 .473.337L9.046 2H14a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-1.85l1.323 3.837a.5.5 0 1 1-.946.326L11.092 11H8.5v3a.5.5 0 0 1-1 0v-3H4.908l-1.435 4.163a.5.5 0 1 1-.946-.326L3.85 11H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h4.954L7.527.337A.5.5 0 0 1 8 0zM2 3v7h12V3H2z"/>
             </svg><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
@@ -27,7 +27,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="#">
+          <a class="nav-link active" href="/groovy/report">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart-2 align-text-bottom" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
             Reports
           </a>
@@ -38,6 +38,10 @@
   <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="margin: 50px 0 0 203px!important;position:relative; padding-top: 36px!important;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none">
     <h2 style="padding-top: 36px; font-weight: bold">Reports</h2>
     <div class="my-4 p-2">
+      <div class="chart-btns">
+        <button class="data-btn" id="day-btn">일별</button>
+        <button class="data-btn" id="month-btn">월별</button>
+      </div>
       <canvas id="report"></canvas>
       <div id="pyo"></div>
     </div>

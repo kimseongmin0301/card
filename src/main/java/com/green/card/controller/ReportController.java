@@ -23,4 +23,12 @@ public class ReportController {
                 .code(ResCommonCode.SUCCESS)
                 .build();
     }
+    @GetMapping(value="/api/date")
+    public ResCommonVo dateData(ReportVo reportVo){
+
+        return ResCommonVo.builder()
+                .result(reportService.dateData(reportVo))
+                .code(ResCommonCode.SUCCESS)
+                .build();
+    }
 }

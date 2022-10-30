@@ -3,3 +3,32 @@
     height:100%!important;
     display: block;
 }
+
+.chart-btns{
+    display: flex;
+    justify-content: end;
+}
+@media(min-width: 991px) {
+    .data-btn {
+        display: flex!important;
+        padding: 5px;
+        outline: none;
+        border-radius: 5px;
+        margin-right: 3px;
+        background-color: white;
+        color: #3c6ffa;
+        border: 1px solid #3c6ffa;
+        font-width: bolder;
+        /*font-size: 16px;*/
+    }
+}
+
+.data-btn:hover{
+    transition:ease-in-out .3s;
+    background-color: #3c6ffa;
+    color:white;
+}
+
+.data-btn {
+    display: none;
+}

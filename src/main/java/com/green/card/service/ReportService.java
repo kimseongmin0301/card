@@ -19,4 +19,11 @@ public class ReportService {
 
         return resultMap;
     }
+
+    public Map<String, Object> dateData(ReportVo reportVo){
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("data", reportMapper.dateGroup(reportVo));
+
+        return resultMap;
+    }
 }

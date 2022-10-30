@@ -9,4 +9,5 @@ import java.util.List;
 @Mapper
 public interface ReportMapper {
     List<ScheduleVo> monthGroup(ReportVo reportVo);
+    List<ScheduleVo> dateGroup(ReportVo reportVo);
 }

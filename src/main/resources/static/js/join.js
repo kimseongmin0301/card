@@ -22,7 +22,7 @@ $(function () {
     // 로고 홈 이동
     const onHome = () => {
         $('#logo').on('click', () => {
-            location.href = `/home`;
+            location.href = `/groovy`;
         })
     }
 
@@ -416,7 +416,7 @@ $(function () {
                     return;
 
                 alert("회원가입 되었습니다.")
-                location.href=`/home`
+                location.href=`/groovy`
             }
         });
     }
