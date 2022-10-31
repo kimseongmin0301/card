@@ -47,16 +47,16 @@ $(function(){
     }
 
     const monthChart = (response) => {
-        let today = new Date();
-        const month = today.getMonth()
-
+        let today = new Date(new Date().setMonth(new Date().getMonth() - 13));
         const report = $('#report');
+
 
         let xData = [];
         for(let i=0; i<12; i++) {
-            let a = new Date(new Date().setMonth(month - 10 + i)).getFullYear()
-            let b = new Date(new Date().setMonth(month - 10 + i)).getMonth()
-            if(b == 0) b = 12;
+            let day = new Date(today.setMonth(today.getMonth() + 1));
+            let b = day.getMonth() + 1
+            let a = day.getFullYear();
+            if(b === 0) b = 12
             xData[i] = `${a}-${b}`;
         }
 
@@ -64,7 +64,6 @@ $(function(){
         response.result.data.forEach(e => {
             yData.push(e.month);
         })
-
         let chData = [];
         let idx;
         for(let i=0; i<xData.length; i++){
@@ -87,7 +86,17 @@ $(function(){
             }
         }
 
-        new Chart(report, {
+        $('#tb-report').empty();
+        let str = '';
+        for(let i=0; i<12; i++) {
+            str = `<tr>
+                    <th>${xData[i]}</th>
+                    <td>${chData[i]}</td>
+               </tr>`
+            $('#tb-report').append(str);
+        }
+
+        let myChart = new Chart(report, {
             type: 'bar',
             data: {
                 labels: xData,
@@ -132,6 +141,8 @@ $(function(){
                 }
             },
         });
+
+        btnClick(myChart);
     }
 
     const dateChart = (response) => {
@@ -175,7 +186,17 @@ $(function(){
             }
         }
 
-        new Chart(report, {
+        $('#tb-report').empty();
+        let str = '';
+        for(let i=0; i<12; i++) {
+            str = `<tr>
+                    <th>${xData[i]}</th>
+                    <td>${chData[i]}</td>
+               </tr>`
+            $('#tb-report').append(str);
+        }
+
+        let myChart = new Chart(report, {
             type: 'bar',
             data: {
                 labels: xData,
@@ -220,18 +241,30 @@ $(function(){
                 }
             },
         });
+
+        btnClick(myChart);
     }
 
-    const btnClick = () => {
-        $('#day-btn').on('click', () => {
-            dateData();
+    const onReset = () => {
+        $('#report').remove();
+        $('#report-area').append('<canvas id=report></canvas>')
+    }
+
+    const btnClick = (myChart) => {
+        $('#day-btn').off('click').on('click', () => {
             localStorage.setItem("isDataType", false);
+            myChart.destroy();
+            onReset();
+            dateData();
         })
-        $('#month-btn').on('click', () => {
-            monthData();
+        $('#month-btn').off('click').on('click', () => {
             localStorage.setItem("isDataType", true);
+            myChart.destroy();
+            onReset();
+            monthData();
         })
     }
+
     const isDataType = localStorage.getItem("isDataType");
 
     const onLodeData = (boolean) => {
@@ -243,6 +276,5 @@ $(function(){
     }
 
     onLodeData(JSON.parse(isDataType));
-    btnClick();
 })
 

@@ -1,7 +1,7 @@
 #report{
-    width:100%!important;
-    height:100%!important;
-    display: block;
+    width: 80%;
+    height:80%;
+    margin: 0 auto;
 }
 
 .chart-btns{
@@ -30,5 +30,43 @@
 }
 
 .data-btn {
+    display: none;
+}
+
+@media(min-width: 991px) {
+    #tb-data{
+        display: flex!important;
+        justify-content: center;
+        margin: 0 auto;
+    }
+}
+
+
+#tb-day{
+    text-align: center;
+    font-size: 16px;
+    border: 1px solid #dddddd;
+    border-collapse: collapse;
+    overflow: hidden;
+}
+
+th, td{
+    border:1px solid #dddddd;
+}
+
+.tb-ch-data tr th{
+    width: 120px;
+}
+
+tbody th {
+    text-align: left;
+    padding: 5px;
+}
+
+tbody td {
+    font-weight: bolder;
+}
+
+#tb-data{
     display: none;
 }

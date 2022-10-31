@@ -42,8 +42,20 @@
         <button class="data-btn" id="day-btn">일별</button>
         <button class="data-btn" id="month-btn">월별</button>
       </div>
-      <canvas id="report"></canvas>
-      <div id="pyo"></div>
+      <div id="report-area">
+        <canvas id="report"></canvas>
+      </div>
+      <div id="tb-data" class="p-2 my-2">
+        <table id="tb-day">
+          <thead class="tb-ch-data">
+            <tr>
+              <th>날짜</th>
+              <th>건수</th>
+            </tr>
+          </thead>
+          <tbody id="tb-report" class="tb-ch-data"></tbody>
+        </table>
+      </div>
     </div>
   </main>
   <script src="/js/report.js"></script>
