@@ -3,6 +3,7 @@ package com.green.card.service;
 import com.green.card.mapper.UserMapper;
 import com.green.card.vo.UserVo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -58,6 +59,16 @@ public class UserService {
     }
 
     /**
+     * 회원정보 저장
      *
+     * @param userVo 회원정보가 들어있는 Vo
+     * @return 저장되는 회원의 PK
      */
+    public Long save(UserVo userVo) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        userVo.setUserPw(encoder.encode(userVo.getUserPw()));
+
+        return userMapper.save(userVo.builder()
+                .password(userVo.getUserPw()).build()).getCode();
+    }
 }
