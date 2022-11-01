@@ -7,13 +7,18 @@ import com.green.card.vo.EmailAuthRequestVo;
 import com.green.card.vo.ResCommonVo;
 import com.green.card.vo.UserVo;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.jdbc.Null;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
-import javax.validation.Valid;
+import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 
 @RestController
@@ -91,5 +96,31 @@ public class UserController {
         return ResCommonVo.builder()
                 .code(ResCommonCode.SUCCESS)
                 .build();
+    }
+
+    @PostMapping(value="/api/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResCommonVo userLoginChk(@RequestBody UserVo userVo, HttpSession session) {
+        try{
+            UserVo user = (UserVo) userService.findId(userVo).get("id");
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+            if(encoder.matches(userVo.getUserPw(), user.getUserPw())) {
+                session.setAttribute("id", userVo.getUserId());
+
+                return ResCommonVo.builder()
+                        .result(userService.findId(userVo))
+                        .code(ResCommonCode.SUCCESS)
+                        .build();
+            } else{
+                return ResCommonVo.builder()
+                        .code(ResCommonCode.FAILURE)
+                        .build();
+            }
+        } catch (NullPointerException e){
+            e.printStackTrace();
+            return ResCommonVo.builder()
+                    .code(ResCommonCode.FAILURE)
+                    .build();
+        }
     }
 }

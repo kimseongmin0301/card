@@ -3,7 +3,7 @@ package com.green.card.mapper;
 import com.green.card.vo.UserVo;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.Optional;
+import java.util.Map;
 
 @Mapper
 public interface UserMapper {
@@ -43,8 +43,5 @@ public interface UserMapper {
     /**
      * 로그인 쿼리
      */
-
-    public interface UserRepository {
-        Optional<UserVo> findByEmail(String email);
-    }
+    UserVo findId(UserVo userVo);
 }

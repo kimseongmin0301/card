@@ -1,5 +1,6 @@
 package com.green.card.vo;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data

@@ -12,11 +12,11 @@
         <h1>Groovy</h1>
         <p>기록 저장소</p>
     </header>
-    <form id="signup-form" method="post">
-        <input type="text" class="sign-in" placeholder="ID">
-        <input type="password" class="sign-in" placeholder="Password">
-        <input type="submit" id="login-btn" value="Login">
-    </form>
+    <div id="signup-form">
+        <input type="text" class="sign-in" placeholder="ID" id="userId">
+        <input type="password" class="sign-in" placeholder="Password" id="userPw">
+        <input type="button" id="login-btn" value="Login">
+    </div>
 </div>
 <div id="bg">
     <div id="insert">
@@ -24,5 +24,6 @@
     </div>
 </div>
 <script src="/js/main.js" type="module"></script>
+<script src="/js/login.js"></script>
 </body>
 </html>

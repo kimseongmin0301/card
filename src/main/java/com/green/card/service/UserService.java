@@ -55,20 +55,18 @@ public class UserService {
      * @param userVo
      */
     public void insertUser(UserVo userVo){
+        BCryptPasswordEncoder scpwd = new BCryptPasswordEncoder();
+        String password = scpwd.encode(userVo.getUserPw());
+
+        userVo.setUserPw(password);
+
         userMapper.insertMember(userVo);
     }
 
-    /**
-     * 회원정보 저장
-     *
-     * @param userVo 회원정보가 들어있는 Vo
-     * @return 저장되는 회원의 PK
-     */
-    public Long save(UserVo userVo) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        userVo.setUserPw(encoder.encode(userVo.getUserPw()));
+    public Map<String, Object> findId(UserVo userVo){
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("id", userMapper.findId(userVo));
 
-        return userMapper.save(userVo.builder()
-                .password(userVo.getUserPw()).build()).getCode();
+        return resultMap;
     }
 }
