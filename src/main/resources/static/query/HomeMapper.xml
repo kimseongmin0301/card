@@ -5,8 +5,9 @@
 <mapper namespace="com.green.card.mapper.HomeMapper">
     <select id="selectOne" parameterType="com.green.card.vo.ScheduleVo" resultType="com.green.card.vo.ScheduleVo">
         SELECT          idx
-        ,          content
+        ,               content
         FROM            tb_schedule
-        WHERE           date = date_format(now(), '%Y-%c-%e');
+        WHERE           date = date_format(now(), '%Y-%c-%e')
+        AND             user_id = #{userId}
     </select>
 </mapper>

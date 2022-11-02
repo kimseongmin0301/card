@@ -7,13 +7,15 @@
         SELECT count(*) `count`, date_format(str_to_date(date,'%Y-%m-%d'),'%Y-%c') `month`
         FROM  tb_schedule
         WHERE DATE_FORMAT(str_to_date(date,'%Y-%m-%d'),'%Y-%m-%d') between date_sub(now(), interval 1 year) and now()
+        AND   user_id = #{userId}
         group by `month`
     </select> <!-- 최근 1년 월별 데이터 -->
 
     <select id="dateGroup" parameterType="com.green.card.vo.ReportVo" resultType="com.green.card.vo.ReportVo">
-        SELECT count(*) `count`, date_format(str_to_date(date,'%Y-%m-%d'),'%c-%d') `date`
+        SELECT count(*) `count`, date_format(str_to_date(date,'%Y-%m-%d'),'%c-%e') `date`
         FROM  tb_schedule
         WHERE DATE_FORMAT(str_to_date(date,'%Y-%m-%d'),'%Y-%m-%d') between date_sub(now(), interval 12 day) and now()
+        AND   user_id = #{userId}
         group by `date`
     </select>
 

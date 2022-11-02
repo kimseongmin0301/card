@@ -6,9 +6,9 @@ $(function () {
         count: 5,
         date: '',
         selector: 0,
-        lastPage: 0
+        lastPage: 0,
+        userId: $('#session-id').val()
     }
-
     // 날짜정보 Get
     let date = new Date();
     let utc = date.getTime() + date.getTimezoneOffset() * 60 * 1000;
@@ -47,7 +47,7 @@ $(function () {
                 let str = '';
                 str += `<div class="day date prev disable" id="prev-${i}" name="date" data-date="${(currentMonth+1)%12==1?currentYear-1:currentYear}-${currentMonth%12==0?12:currentMonth%12}-${i}">` + i + `</div>`
                 $('.dates').append(str);
-                dateCnt($(`#prev-${i}`));
+                dateCnt($(`#prev-${i}`), $('#session-id').val());
             }
         }
 
@@ -56,7 +56,7 @@ $(function () {
             let str = '';
             str += `<div class="day date current" id='present-${i}' name="date" data-date="${currentYear}-${(currentMonth+1)%12==0?12:(currentMonth+1)%12}-${i}">` + i + `</div>`
             $('.dates').append(str);
-            dateCnt($(`#present-${i}`));
+            dateCnt($(`#present-${i}`), $('#session-id').val());
 
         }
 
@@ -65,7 +65,7 @@ $(function () {
             let str = '';
             str += `<div class="day date disable" id="next-${i}" name="date" data-date="${(currentMonth+2)%12==1?currentYear+1:currentYear}-${(currentMonth+2)%12==0?12:(currentMonth+2)%12}-${i}">` + i + `</div>`
             $('.dates').append(str);
-            dateCnt($(`#next-${i}`));
+            dateCnt($(`#next-${i}`), $('#session-id').val());
         }
 
 
@@ -243,7 +243,7 @@ $(function () {
                 contentType: 'application/json',
                 data: JSON.stringify({
                     "content": $('#insert-schedule').val(),
-                    "user_id": '',
+                    "userId": $('#session-id').val(),
                     "date": $('#date-title').text()
                 }),
                 success: () => {
@@ -361,16 +361,17 @@ $(function () {
     // }
 
     // 날짜별 데이터 카운터
-    const dateCnt = (e) => {
-        let date = e.data();
+    const dateCnt = (date, id) => {
+        let dt = date.data();
+        dt.userId = id;
         $.ajax({
             url: `/groovy/api/scheduleCount`,
             type: `post`,
-            data: JSON.stringify(date),
+            data: JSON.stringify(dt),
             contentType:`application/json`,
             success: cnt => {
                 if (cnt.result.dateCnt) {
-                    $(e).append(`<div id="date-cnt">${cnt.result.dateCnt}</div>`)
+                    $(date).append(`<div id="date-cnt">${cnt.result.dateCnt}</div>`)
                 }
             }
         })

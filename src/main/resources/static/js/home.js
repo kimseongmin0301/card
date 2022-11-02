@@ -1,12 +1,13 @@
 $(() => {
     const date = new Date();
     const today = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+    let userId = $('#session-id').val()
 
     const todaySchedule = () => {
         $.ajax({
             url: `/groovy/today`,
             type: `post`,
-            data: JSON.stringify({"date": today}),
+            data: JSON.stringify({"date": today, "userId":userId}),
             contentType: 'application/json',
             success: (e) => {
                 if (e.result.date.length > 0) {
@@ -48,7 +49,7 @@ $(() => {
                 type: `post`,
                 data: JSON.stringify({
                     "content": content,
-                    "userId": "id",
+                    "userId": userId,
                     "date": today
                 }),
                 contentType: 'application/json',

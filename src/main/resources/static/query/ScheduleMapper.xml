@@ -9,6 +9,7 @@
                      ,          date_format(reg_dt, '%Y-%m-%d') regDt
                 FROM            tb_schedule
                 WHERE           date = #{date}
+                AND             user_id = #{userId}
         </sql>
 
         <select id="selectList" resultType="com.green.card.vo.ScheduleVo" parameterType="com.green.card.vo.ReqPageVo">
@@ -45,6 +46,7 @@
         <select id="groupDateCnt" parameterType="com.green.card.vo.ScheduleVo" resultType="java.lang.Integer">
             select count(*)
             from tb_schedule
+            where user_id = #{userId}
             group by date
             having date = #{date}
         </select>

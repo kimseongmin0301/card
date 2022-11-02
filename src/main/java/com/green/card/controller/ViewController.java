@@ -42,8 +42,6 @@ public class ViewController {
         return "report";
     }
 
-    @GetMapping("/test")
-    public String test() {
-        return "test";
-    }
+    @GetMapping("/profile")
+    public String profile() {return "profile";}
 }

@@ -27,8 +27,9 @@ $(function(){
     const monthData = () => {
         $.ajax({
             url:`/groovy/api/month`,
-            type:`get`,
-            dataType:`json`,
+            type:`post`,
+            data: JSON.stringify({"userId": $('#session-id').val()}),
+            contentType: `application/json`,
             success: response => {
                 monthChart(response)
             }
@@ -38,8 +39,9 @@ $(function(){
     const dateData = () => {
         $.ajax({
             url:`/groovy/api/date`,
-            type:`get`,
-            dataType:`json`,
+            type:`post`,
+            data: JSON.stringify({"userId": $('#session-id').val()}),
+            contentType: `application/json`,
             success: response => {
                 dateChart(response);
             }
@@ -47,23 +49,26 @@ $(function(){
     }
 
     const monthChart = (response) => {
-        let today = new Date(new Date().setMonth(new Date().getMonth() - 13));
+        let today = new Date();
         const report = $('#report');
 
-
         let xData = [];
+        let plus = 0;
         for(let i=0; i<12; i++) {
-            let day = new Date(today.setMonth(today.getMonth() + 1));
-            let b = day.getMonth() + 1
-            let a = day.getFullYear();
-            if(b === 0) b = 12
-            xData[i] = `${a}-${b}`;
+            let day = new Date(new Date(today.setMonth(today.getMonth() - 11 + plus)))
+            plus = 12;
+
+            let mon = (day.getMonth() + 1) % 12 == 0 ? 12 : (day.getMonth() + 1);
+            let year = day.getFullYear();
+
+            xData[i] = `${year}-${mon}`;
         }
 
         let yData = [];
         response.result.data.forEach(e => {
             yData.push(e.month);
         })
+
         let chData = [];
         let idx;
         for(let i=0; i<xData.length; i++){
@@ -147,16 +152,16 @@ $(function(){
 
     const dateChart = (response) => {
         let today = new Date();
-        const month = today.getMonth()
-        const date = today.getDate()
 
         const report = $('#report');
-
+        let plus = 0
         let xData = [];
         for(let i=0; i<12; i++) {
-            let a = (month+1) % 12 === 0 ? 1 : (month+1) % 12;
-            let b = date - 11 + i;
-            xData[i] = `${a}-${b}`;
+            let day = new Date(today.setDate(today.getDate() - 11 + plus))
+            let mon = (day.getMonth() + 1) % 12 == 0 ? 12 : (day.getMonth() + 1) % 12;
+            plus = 12;
+            // if(i == 11) plus = 0;
+            xData[i] = `${mon}-${day.getDate()}`;
         }
 
         let yData = [];

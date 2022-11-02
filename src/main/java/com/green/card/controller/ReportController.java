@@ -15,16 +15,16 @@ import org.springframework.web.bind.annotation.*;
 public class ReportController {
     private final ReportService reportService;
 
-    @GetMapping(value="/api/month")
-    public ResCommonVo monthData(ReportVo reportVo){
+    @PostMapping(value="/api/month", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResCommonVo monthData(@RequestBody ReportVo reportVo){
 
         return ResCommonVo.builder()
                 .result(reportService.monthData(reportVo))
                 .code(ResCommonCode.SUCCESS)
                 .build();
     }
-    @GetMapping(value="/api/date")
-    public ResCommonVo dateData(ReportVo reportVo){
+    @PostMapping(value="/api/date", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResCommonVo dateData(@RequestBody ReportVo reportVo){
 
         return ResCommonVo.builder()
                 .result(reportService.dateData(reportVo))

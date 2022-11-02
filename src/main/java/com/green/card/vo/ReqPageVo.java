@@ -7,4 +7,5 @@ public class ReqPageVo {
     private int page;
     private int size;
     private String date;
+    private String userId;
 }
