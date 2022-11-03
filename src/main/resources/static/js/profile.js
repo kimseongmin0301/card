@@ -49,8 +49,8 @@ $(function(){
             })
         })
     }
-    $('#profile-userNickname').append(`<button class="update-btns" id="nickname-btn">닉네임 수정</button>`)
-    $('#userEmail').append(`<button class="update-btns" id="email-btn">이메일 수정</button>`)
-    $('#userPhone').append(`<button class="update-btns" id="phone-btn">휴대전화 수정</button>`)
     onProfile();
+    $('#tb-profile').click(e => {
+        console.dir(e.target)
+    })
 })
