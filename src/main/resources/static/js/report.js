@@ -68,6 +68,7 @@ $(function(){
         response.result.data.forEach(e => {
             yData.push(e.month);
         })
+        console.log(response.result.data);
 
         let chData = [];
         let idx;
@@ -90,7 +91,6 @@ $(function(){
                 chData[i] = 0;
             }
         }
-
         $('#tb-report').empty();
         let str = '';
         for(let i=0; i<12; i++) {
