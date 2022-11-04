@@ -1,4 +1,5 @@
 $(() => {
+    $('#home').addClass('active');
     const date = new Date();
     const today = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
     let userId = $('#session-id').val()

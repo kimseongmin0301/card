@@ -8,8 +8,8 @@
     <th:block th:replace="common/header"/>
     <th:block layout:fragment="head"></th:block>
 </head>
-<body>
-<div class="tb-container">
+<body th:if="${session.id}">
+<div class="tb-container" >
     <th:block th:replace="common/nav"/>
     <div class="tb-content">
         <div class="content-body">
@@ -18,5 +18,9 @@
     </div>
     <th:block th:replace="common/footer"/>
 </div>
+</body>
+<body th:unless="${session.id}">
+    <h1><a href="/groovy">로그인</a>을 해주세요</h1>
+    <h6>groovy</h6>
 </body>
 </html>

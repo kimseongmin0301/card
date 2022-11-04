@@ -45,7 +45,6 @@ public class ProfileController {
     @PostMapping(value="/api/changeMail")
     public ResponseEntity<?> mailConfirm(@RequestBody EmailAuthRequestVo emailVo) throws MessagingException, UnsupportedEncodingException {
         String authNum =  emailService.changeEmail(emailVo.getEmail());
-        // "email : "이메일"
 
         return new ResponseEntity<>(authNum, HttpStatus.OK);
     }

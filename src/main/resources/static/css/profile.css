@@ -1,0 +1,33 @@
+button{
+    all:unset;
+    cursor: pointer;
+    font-weight: bolder;
+    font-size: 14px;
+    margin: 5px;
+    padding: 5px;
+    background-color: #ffffff;
+    color:#8041D9;
+    border-radius: 10px;
+    border:1px solid #8041D9;
+}
+
+button:hover{
+    background-color: #8041D9;
+    color: white;
+    transition: ease-in-out .2s;
+}
+
+input {
+    border-radius: 10px;
+}
+
+.red {
+    font-size: 15px;
+    font-weight: bolder;
+    color: red;
+}
+.green {
+    font-size: 15px;
+    color: green;
+    font-weight: bolder;
+}
