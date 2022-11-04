@@ -237,7 +237,8 @@ $(function () {
             contentType: 'application/json',
             data: JSON.stringify({"userNickname": $('#nickname').val()}),
             success: (data) => {
-                if(data.result.userNickname == 1) {
+                console.log(data)
+                if(data.result.nickname == 1) {
                     isEmpty.nickname = false;
                     $('#nicknameMsg').css({
                         "color":"red"
@@ -383,10 +384,9 @@ $(function () {
             }
 
             if(target === undefined){
+                $('#join-btn').removeAttr('disabled');
                 onInsertUser();
             } else{
-                $('#join-btn').attr('disabled','disabled');
-
                 $('#' + target).focus();
 
                 let offset = $('.tb-content').offset();
