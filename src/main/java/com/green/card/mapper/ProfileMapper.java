@@ -8,4 +8,6 @@ import java.util.List;
 @Mapper
 public interface ProfileMapper {
     List<UserVo> findUser(UserVo userVo);
+
+    int updateEmail(UserVo userVo);
 }

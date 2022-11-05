@@ -13,4 +13,10 @@
         FROM tb_user
         WHERE user_id = #{userId}
     </select>
+
+    <update id="updateEmail">
+        UPDATE tb_user
+        SET user_email = #{userEmail}
+        WHERE   user_id = #{userId}
+    </update>
 </mapper>

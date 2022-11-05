@@ -20,4 +20,10 @@ public class ProfileService {
         return resultMap;
     }
 
+    public Map<String, Object> updateEmail(UserVo userVo){
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("email", profileMapper.updateEmail(userVo));
+
+        return resultMap;
+    }
 }

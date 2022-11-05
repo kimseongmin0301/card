@@ -14,6 +14,7 @@ $(function(){
                     $('#nickname-error-msg').addClass("red")
                     $('#nickname-error-msg').html("이메일 형식이 올바르지 않습니다.");
                     $('#check-email').attr("disabled", "true");
+                    $('#check-email').attr("disabled", "true");
                 } else {
                     $('#nickname-error-msg').removeClass("red")
                     $('#nickname-error-msg').addClass("green")
@@ -39,8 +40,44 @@ $(function(){
             data:JSON.stringify({"email" : $('#profile-email').val()}),
             contentType: 'application/json',
             success: data => {
-                console.log(data);
+                alert(`코드가 발송됨`);
+                checkCode(data);
+                updateEmail();
             }
+        })
+    }
+
+    const checkCode = (code) => {
+        $('#code').on("Propertychange keyup paste input", (e) => {
+            if ($(e.target).val() === code) {
+                $('#update-btn').removeAttr('disabled');
+                $('#nickname-error-msg').removeClass('red');
+                $('#nickname-error-msg').addClass('green');
+                $('#nickname-error-msg').html("수정을 원하시면 등록을 눌러주세요.");
+            } else {
+                $('#update-btn').add('disabled', true);
+                $('#nickname-error-msg').html("인증번호가 틀렸습니다.");
+                $('#nickname-error-msg').removeClass('green');
+                $('#nickname-error-msg').addClass('red');
+            }
+        })
+    }
+
+    const updateEmail = () => {
+        $('#update-btn').one('click', () => {
+            $.ajax({
+                url:`/groovy/api/updateEmail`,
+                type:`put`,
+                data:JSON.stringify({
+                    "userEmail" : $('#profile-email').val(),
+                    "userId" : $('#session-id').val()
+                }),
+                contentType:`application/json`,
+                success:() => {
+                    offModal();
+                    onProfile();
+                }
+            })
         })
     }
 
@@ -118,7 +155,7 @@ $(function(){
                         let str = '';
                         str += `<div id="new-value" class="my-4"> <h4>새 이메일</h4>`
                         str += `<input type="text" maxlength="100" placeholder="Email" id="profile-email"> <button id="check-email" disabled="true">인증번호 받기</button>`
-                        str += `<h6>인증번호</h6><input type="text" maxlength="100"> `
+                        str += `<h6>인증번호</h6><input id="code" type="text" maxlength="100"> `
                         str += `<button id="update-btn" style="display: block">등록</button><span id="nickname-error-msg"></span></div>`
 
                         $('#update-val').html(str);

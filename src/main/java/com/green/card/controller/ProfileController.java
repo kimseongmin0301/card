@@ -26,6 +26,11 @@ public class ProfileController {
     private final UserService userService;
     private final EmailService emailService;
 
+    /**
+     * 프로필 정보 불러오기
+     * @param userVo
+     * @return
+     */
     @PostMapping(value="/api/profile", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResCommonVo profile(@RequestBody UserVo userVo){
 
@@ -73,4 +78,14 @@ public class ProfileController {
 //                .code(ResCommonCode.SUCCESS)
 //                .build();
 //    }
+
+    @PutMapping(value="/api/updateEmail", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResCommonVo updateEmail(@RequestBody UserVo userVo){
+
+        return ResCommonVo.builder()
+                .result(profileService.updateEmail(userVo))
+                .code(ResCommonCode.SUCCESS)
+                .build();
+    }
+
 }
