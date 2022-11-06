@@ -10,4 +10,8 @@ public interface ProfileMapper {
     List<UserVo> findUser(UserVo userVo);
 
     int updateEmail(UserVo userVo);
+
+    int updatePhone(UserVo userVo);
+
+    int updateNickname(UserVo userVo);
 }

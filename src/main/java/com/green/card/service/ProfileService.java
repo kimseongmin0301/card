@@ -26,4 +26,18 @@ public class ProfileService {
 
         return resultMap;
     }
+
+    public Map<String, Object> updatePhone(UserVo userVo){
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("phone", profileMapper.updatePhone(userVo));
+
+        return resultMap;
+    }
+
+    public Map<String, Object> updateNickname(UserVo userVo){
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("phone", profileMapper.updateNickname(userVo));
+
+        return resultMap;
+    }
 }

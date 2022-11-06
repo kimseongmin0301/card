@@ -17,6 +17,21 @@
     <update id="updateEmail">
         UPDATE tb_user
         SET user_email = #{userEmail}
-        WHERE   user_id = #{userId}
+        ,   mod_dt = now()
+        WHERE user_id = #{userId}
+    </update>
+
+    <update id="updateNickname">
+        UPDATE tb_user
+        SET user_nickname = #{userNickname}
+        ,   mod_dt = now()
+        WHERE user_id = #{userId}
+    </update>
+
+    <update id="updatePhone">
+        UPDATE tb_user
+        SET user_phone = #{userPhone}
+        ,   mod_dt = now()
+        WHERE user_id = #{userId}
     </update>
 </mapper>

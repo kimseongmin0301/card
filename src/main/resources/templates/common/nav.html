@@ -14,7 +14,7 @@
                         <input type="hidden" id="session-id" class="nav-link disable" name="userId" th:value="${session.id}" style="color:black">
                     </li>
                 </ul>
-                    <button class="btn-logout btn-outline-logout" type="button" th:if="${session.id}">LogOut</button>
+                    <button class="btn-logout btn-outline-logout" id="logout-btn" type="button" th:if="${session.id}">LogOut</button>
             </div>
         </div>
     </nav>

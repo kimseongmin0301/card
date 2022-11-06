@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 
 @RestController
@@ -48,8 +49,8 @@ public class ProfileController {
      * @throws UnsupportedEncodingException
      */
     @PostMapping(value="/api/changeMail")
-    public ResponseEntity<?> mailConfirm(@RequestBody EmailAuthRequestVo emailVo) throws MessagingException, UnsupportedEncodingException {
-        String authNum =  emailService.changeEmail(emailVo.getEmail());
+    public ResponseEntity<?> mailConfirm(@RequestBody EmailAuthRequestVo emailVo, HttpSession session) throws MessagingException, UnsupportedEncodingException {
+        String authNum =  emailService.changeEmail(emailVo.getEmail(), String.valueOf(session.getAttribute("id")));
 
         return new ResponseEntity<>(authNum, HttpStatus.OK);
     }
@@ -88,4 +89,21 @@ public class ProfileController {
                 .build();
     }
 
+    @PutMapping(value="/api/updatePhone", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResCommonVo updatePhone(@RequestBody UserVo userVo){
+
+        return ResCommonVo.builder()
+                .result(profileService.updatePhone(userVo))
+                .code(ResCommonCode.SUCCESS)
+                .build();
+    }
+
+    @PutMapping(value="/api/updateNickname", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResCommonVo updateNickname(@RequestBody UserVo userVo){
+
+        return ResCommonVo.builder()
+                .result(profileService.updateNickname(userVo))
+                .code(ResCommonCode.SUCCESS)
+                .build();
+    }
 }

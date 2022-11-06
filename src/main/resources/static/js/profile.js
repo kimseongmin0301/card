@@ -1,6 +1,11 @@
 import {autoHyphen, regNickname, regEmail} from "./module.js";
 
 $(function(){
+    const booleanCheck = {
+        isEmail: false,
+        isNickname: false,
+    }
+
     const inPhone = () => {
         $('#profile-phone').on('input', (e) => {
             autoHyphen(e.target);
@@ -54,31 +59,37 @@ $(function(){
                 $('#nickname-error-msg').removeClass('red');
                 $('#nickname-error-msg').addClass('green');
                 $('#nickname-error-msg').html("수정을 원하시면 등록을 눌러주세요.");
+                booleanCheck.isEmail = true;
             } else {
                 $('#update-btn').add('disabled', true);
                 $('#nickname-error-msg').html("인증번호가 틀렸습니다.");
                 $('#nickname-error-msg').removeClass('green');
                 $('#nickname-error-msg').addClass('red');
+                booleanCheck.isEmail = false;
             }
         })
     }
 
     const updateEmail = () => {
-        $('#update-btn').one('click', () => {
-            $.ajax({
-                url:`/groovy/api/updateEmail`,
-                type:`put`,
-                data:JSON.stringify({
-                    "userEmail" : $('#profile-email').val(),
-                    "userId" : $('#session-id').val()
-                }),
-                contentType:`application/json`,
-                success:() => {
-                    offModal();
-                    onProfile();
+            $('#update-btn').on('click', () => {
+                if(booleanCheck.isEmail === true){
+                    $.ajax({
+                        url:`/groovy/api/updateEmail`,
+                        type:`put`,
+                        data:JSON.stringify({
+                            "userEmail" : $('#profile-email').val(),
+                            "userId" : $('#session-id').val()
+                        }),
+                        contentType:`application/json`,
+                        success:() => {
+                            offModal();
+                            onProfile();
+                        }
+                    })
+                } else{
+                    alert("코드를 다시 확인해주세요")
                 }
             })
-        })
     }
 
     $('#home').removeClass('active');
@@ -136,12 +147,13 @@ $(function(){
                         let str = '';
                         str += `<div id="new-value" class="my-4"> <h4>새 닉네임</h4>`
                         str += `<input type="text" maxlength="20" placeholder="Nickname" id="profile-nickname">`
-                        str += `<button id="update-btn">등록</button><span id="nickname-error-msg"></span></div>`
+                        str += `<button id="update-btn">등록</button><span style="display:block;" id="nickname-error-msg"></span></div>`
 
                         $('#update-val').html(str);
                     }
                 })
             })
+            checkNickname();
         })
 
         $('#email-btn').on('click', () => {
@@ -187,9 +199,100 @@ $(function(){
                     }
                 })
             })
+            updatePhone();
         })
         $('.close-area').on('click', () => {
             offModal();
+        })
+    }
+
+    const updatePhone = () => {
+        $('#update-btn').on('click', () => {
+            if($('#profile-phone').val()){
+                $.ajax({
+                    url:`/groovy/api/updatePhone`,
+                    type:`put`,
+                    data:JSON.stringify({
+                        "userPhone" : $('#profile-phone').val(),
+                        "userId" : $('#session-id').val()
+                    }),
+                    contentType:`application/json`,
+                    success: () => {
+                        offModal();
+                        onProfile();
+                    }
+                })
+            } else{
+                alert('번호를 입력해주세요');
+            }
+        })
+    }
+
+    const selectId = () => {
+        if ($('#now-text').text() !== $('#profile-nickname').val()) {
+            $.ajax({
+                url: `/groovy/api/selectNickname`,
+                type: `post`,
+                data: JSON.stringify({
+                    "userNickname": $('#profile-nickname').val()
+                }),
+                contentType: `application/json`,
+                success: data => {
+                    if (data === 1) {
+                        $('#nickname-error-msg').css({"color": "red"});
+                        $('#nickname-error-msg').html("중복된 닉네임입니다.");
+                        booleanCheck.isNickname = false;
+                    } else {
+                        booleanCheck.isNickname = true;
+                    }
+                }
+            })
+        } else {
+            $('#nickname-error-msg').css({"color": "red"});
+            $('#nickname-error-msg').html("동일 닉네임 입니다.");
+            booleanCheck.isNickname = false;
+        }
+    }
+
+    const checkNickname = () => {
+        let timeout;
+        let delay = 300;
+        $('#profile-nickname').on("Propertychange keyup paste input", (e) => {
+            if(regNickname($(e.target).val())) {
+                $('#nickname-error-msg').css({"color": "green"});
+                $('#nickname-error-msg').html("좋은 닉네임 입니다.");
+                if(timeout) {
+                    clearTimeout(timeout);
+                }
+                timeout = setTimeout(() => {
+                    selectId();
+                }, delay);
+            } else{
+                $('#nickname-error-msg').css({"color": "red"});
+                $('#nickname-error-msg').html("한글, 대, 소문자 2 ~ 8 글자로 맞춰주세요.");
+                booleanCheck.isNickname = false;
+            }
+        })
+        $('#update-btn').on('click', () => {
+            if(booleanCheck.isNickname) {
+                updateNickname();
+            }
+        })
+    }
+
+    const updateNickname = () => {
+        $.ajax({
+            url:`/groovy/api/updateNickname`,
+            type:`put`,
+            data:JSON.stringify({
+                "userNickname":$('#profile-nickname').val(),
+                "userId":$('#session-id').val()
+            }),
+            contentType:`application/json`,
+            success:() => {
+                offModal();
+                onProfile();
+            }
         })
     }
 
@@ -204,5 +307,6 @@ $(function(){
             "display" : "none"
         })
     }
+
     onProfile();
 })

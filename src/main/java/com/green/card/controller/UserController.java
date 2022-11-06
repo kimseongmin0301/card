@@ -123,4 +123,9 @@ public class UserController {
                     .build();
         }
     }
+
+    @PostMapping(value="/api/logout")
+    public void logOut(HttpSession session){
+        session.invalidate();
+    }
 }

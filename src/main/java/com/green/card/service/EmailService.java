@@ -8,6 +8,7 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
 
@@ -63,7 +64,7 @@ public class EmailService {
     }
 
     // 이메일 수정 양식 작성
-    public MimeMessage changeEmailForm(String email) throws MessagingException, UnsupportedEncodingException {
+    public MimeMessage changeEmailForm(String email, String session) throws MessagingException, UnsupportedEncodingException {
 
         createCode(); //인증 코드 생성
         String setFrom = "poseania1358@gmail.com"; //email-config에 설정한 자신의 이메일 주소(보내는 사람)
@@ -74,7 +75,7 @@ public class EmailService {
         message.addRecipients(MimeMessage.RecipientType.TO, toEmail); //보낼 이메일 설정
         message.setSubject(title); //제목 설정
         message.setFrom(setFrom); //보내는 이메일
-        message.setText(changeContext(authNum, toEmail), "utf-8", "html");
+        message.setText(changeContext(authNum, toEmail, session), "utf-8", "html");
 
         return message;
     }
@@ -90,10 +91,10 @@ public class EmailService {
         return authNum; //인증 코드 반환
     }
     //이메일 변경 메일 전송
-    public String changeEmail(String toEmail) throws MessagingException, UnsupportedEncodingException {
+    public String changeEmail(String toEmail, String session) throws MessagingException, UnsupportedEncodingException {
 
         //메일전송에 필요한 정보 설정
-        MimeMessage emailForm = changeEmailForm(toEmail);
+        MimeMessage emailForm = changeEmailForm(toEmail, session);
         //실제 메일 전송
         emailSender.send(emailForm);
 
@@ -109,8 +110,10 @@ public class EmailService {
     }
 
     //타임리프를 이용한 changeContext 설정
-    public String changeContext(String code, String email) {
+    public String changeContext(String code, String email, String id) {
         Context context = new Context();
+
+        context.setVariable("session", id);
         context.setVariable("code", code);
         context.setVariable("email", email);
         return templateEngine.process("changeMail", context); //mail.html
