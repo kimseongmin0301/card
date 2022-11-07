@@ -5,7 +5,7 @@ $(function(){
     $('#info-pw').removeClass("active");
 
     const receiveMail = () => {
-        $('#receive-auth').on('click', () => {
+        $('#receive-auth').off().on('click', () => {
             if(regEmail($("#email").val())){
                 $.ajax({
                     url:`/groovy/api/authId`,
@@ -26,8 +26,9 @@ $(function(){
     }
 
     const findInformationId = (e) => {
-        $('#check-auth').on('click', () => {
+        $('#check-auth').off().on('click', () => {
             if($('#auth').val() === e){
+                $('#receive-auth').attr("disabled",true);
                 $.ajax({
                     url:`/groovy/api/lostId`,
                     type:`post`,

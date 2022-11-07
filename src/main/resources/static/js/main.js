@@ -6,11 +6,15 @@ $(function(){
         })
     }
 
-    const onLogin = () => {
-        $('#login-btn').on('click', () => {
-
+    const findIdPw = () => {
+        $('#find-id').on('click', () => {
+            location.href=`/groovy/findId`;
+        })
+        $('#find-pw').on('click', () => {
+            location.href=`/groovy/findPw`;
         })
     }
 
     onJoinMemberShip();
+    findIdPw();
 })

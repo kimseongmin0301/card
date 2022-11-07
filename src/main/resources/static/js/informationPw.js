@@ -5,8 +5,9 @@ $(function(){
     $('#info-id').removeClass("active");
 
     const checkEmail = () => {
-        $('#receive-auth').on('click', () => {
+        $('#receive-auth').off().on('click', () => {
             if(regId($('#id').val()) && regEmail($('#email').val())){
+                $('#receive-auth').attr("disabled",true);
                 $.ajax({
                     url:`/groovy/api/authPw`,
                     type:`post`,

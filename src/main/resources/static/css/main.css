@@ -133,7 +133,7 @@ input{
     margin-top:10px;
 }
 
-#find-id, #find-pw{
+#find-id, #find-pw, #insert-btn{
     cursor:pointer;
     margin-left: 10px;
 }

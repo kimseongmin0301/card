@@ -42,6 +42,7 @@ $(function(){
             }, delay);
         })
         $('#check-email').on('click', () => {
+            $('#check-email').attr('disabled',true);
             emailCheck();
         })
     }
