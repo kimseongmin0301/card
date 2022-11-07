@@ -69,4 +69,20 @@ public class UserService {
 
         return resultMap;
     }
+
+    public Map<String, Object> lostId(UserVo userVo){
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("id", userMapper.lostId(userVo));
+
+        return resultMap;
+    }
+
+    public void lostPw(UserVo userVo){
+        BCryptPasswordEncoder scpwd = new BCryptPasswordEncoder();
+        String password = scpwd.encode(userVo.getUserPw());
+
+        userVo.setUserPw(password);
+
+        userMapper.lostPw(userVo);
+    }
 }

@@ -12,11 +12,6 @@ public class ViewController {
         return "calendar";
     }
 
-    @GetMapping("/index2")
-    public String index2() {
-        return "index2";
-    }
-
     @GetMapping("")
     public String main() {
         return "index";
@@ -44,4 +39,10 @@ public class ViewController {
 
     @GetMapping("/profile")
     public String profile() {return "profile";}
+
+    @GetMapping("/findId")
+    public String findId() {return "findId";}
+
+    @GetMapping("/findPw")
+    public String findPw() {return "findPw";}
 }

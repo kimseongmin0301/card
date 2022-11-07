@@ -9,4 +9,5 @@ public class EmailAuthRequestVo {
 
     @NotEmpty(message = "이메일을 입력해주세요")
     public String email;
+    public String userId;
 }

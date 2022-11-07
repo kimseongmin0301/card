@@ -80,6 +80,39 @@ public class EmailService {
         return message;
     }
 
+    // 비밀번호 찾기 양식 작성
+    public MimeMessage findPwForm(String email) throws MessagingException, UnsupportedEncodingException {
+
+        createCode(); //인증 코드 생성
+        String setFrom = "poseania1358@gmail.com"; //email-config에 설정한 자신의 이메일 주소(보내는 사람)
+        String toEmail = email; //받는 사람
+        String title = "Groovy 비밀번호 찾기 인증번호"; //제목
+
+        MimeMessage message = emailSender.createMimeMessage();
+        message.addRecipients(MimeMessage.RecipientType.TO, toEmail); //보낼 이메일 설정
+        message.setSubject(title); //제목 설정
+        message.setFrom(setFrom); //보내는 이메일
+        message.setText(findPwContext(authNum, toEmail), "utf-8", "html");
+
+        return message;
+    }
+
+    public MimeMessage findIdForm(String email) throws MessagingException, UnsupportedEncodingException {
+
+        createCode(); //인증 코드 생성
+        String setFrom = "poseania1358@gmail.com"; //email-config에 설정한 자신의 이메일 주소(보내는 사람)
+        String toEmail = email; //받는 사람
+        String title = "Groovy 아이디 찾기 인증번호"; //제목
+
+        MimeMessage message = emailSender.createMimeMessage();
+        message.addRecipients(MimeMessage.RecipientType.TO, toEmail); //보낼 이메일 설정
+        message.setSubject(title); //제목 설정
+        message.setFrom(setFrom); //보내는 이메일
+        message.setText(findPwContext(authNum, toEmail), "utf-8", "html");
+
+        return message;
+    }
+
     //실제 메일 전송
     public String sendEmail(String toEmail) throws MessagingException, UnsupportedEncodingException {
 
@@ -100,6 +133,26 @@ public class EmailService {
 
         return authNum; //인증 코드 반환
     }
+    //비밀번호 메일 전송
+    public String sendNewPwEmail(String toEmail) throws MessagingException, UnsupportedEncodingException {
+
+        //메일전송에 필요한 정보 설정
+        MimeMessage emailForm = findPwForm(toEmail);
+        //실제 메일 전송
+        emailSender.send(emailForm);
+
+        return authNum; //인증 코드 반환
+    }
+
+    public String sendNewIdEmail(String toEmail) throws MessagingException, UnsupportedEncodingException {
+
+        //메일전송에 필요한 정보 설정
+        MimeMessage emailForm = findIdForm(toEmail);
+        //실제 메일 전송
+        emailSender.send(emailForm);
+
+        return authNum; //인증 코드 반환
+    }
 
     //타임리프를 이용한 context 설정
     public String setContext(String code, String email) {
@@ -112,10 +165,23 @@ public class EmailService {
     //타임리프를 이용한 changeContext 설정
     public String changeContext(String code, String email, String id) {
         Context context = new Context();
-
         context.setVariable("session", id);
         context.setVariable("code", code);
         context.setVariable("email", email);
-        return templateEngine.process("changeMail", context); //mail.html
+        return templateEngine.process("changeMail", context); //changeMail.html
+    }
+    //타임리프를 이용한 Context 설정
+    public String findPwContext(String code, String email) {
+        Context context = new Context();
+        context.setVariable("code", code);
+        context.setVariable("email", email);
+        return templateEngine.process("findPwMail", context); //findPwMail.html
+    }
+
+    public String findIdContext(String code, String email) {
+        Context context = new Context();
+        context.setVariable("code", code);
+        context.setVariable("email", email);
+        return templateEngine.process("findIdMail", context); //findIdMail.html
     }
 }

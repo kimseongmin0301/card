@@ -44,4 +44,16 @@
         FROM            tb_user
         WHERE           user_id = #{userId}
     </select>
+
+    <select id="lostId" parameterType="com.green.card.vo.UserVo" resultType="com.green.card.vo.UserVo">
+        select user_id
+        from tb_user
+        where user_name = #{userName} and user_email = #{userEmail}
+    </select>
+
+    <update id="lostPw">
+        update tb_user
+        set user_pw = #{userPw}
+        where user_id = #{userId} and user_email = #{userEmail}
+    </update>
 </mapper>

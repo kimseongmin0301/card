@@ -7,6 +7,7 @@ import com.green.card.vo.EmailAuthRequestVo;
 import com.green.card.vo.ResCommonVo;
 import com.green.card.vo.UserVo;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
 import org.apache.ibatis.jdbc.Null;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -127,5 +128,33 @@ public class UserController {
     @PostMapping(value="/api/logout")
     public void logOut(HttpSession session){
         session.invalidate();
+    }
+
+    @PostMapping(value="/api/lostId")
+    public ResCommonVo lostId(@RequestBody UserVo userVo){
+
+        return ResCommonVo.builder()
+                .code(ResCommonCode.SUCCESS)
+                .result(userService.lostId(userVo))
+                .build();
+    }
+
+    @PostMapping(value="/api/authId")
+    public ResponseEntity<?> authId(@RequestBody EmailAuthRequestVo emailVo) throws MessagingException, UnsupportedEncodingException {
+        String authNum =  emailService.sendNewIdEmail(emailVo.getEmail());
+
+        return new ResponseEntity<>(authNum, HttpStatus.OK);
+    }
+
+    @PostMapping(value="/api/authPw")
+    public ResponseEntity<?> authPw(@RequestBody EmailAuthRequestVo emailVo) throws MessagingException, UnsupportedEncodingException {
+        String authNum =  emailService.sendNewPwEmail(emailVo.getEmail());
+
+        return new ResponseEntity<>(authNum, HttpStatus.OK);
+    }
+
+    @PutMapping(value="/api/lostPw", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void newAuthPw(@RequestBody UserVo userVo){
+        userService.lostPw(userVo);
     }
 }

@@ -128,3 +128,12 @@ input{
 #wrap{
     margin: 0 16px;
 }
+
+#find-area{
+    margin-top:10px;
+}
+
+#find-id, #find-pw{
+    cursor:pointer;
+    margin-left: 10px;
+}

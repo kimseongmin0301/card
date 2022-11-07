@@ -60,25 +60,41 @@ public class ProfileController {
      * @param userVo
      * @return
      */
-//    @PostMapping(value="/api/changePw", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResCommonVo changePw(@RequestBody UserVo userVo) {
-//        UserVo user = (UserVo) userService.findId(userVo).get("id");
-//        System.out.println(userVo.getUserPw()); // 내가 입력한거
-//        System.out.println(user.getUserPw()); // DB 저장돼있는거
-//
-//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//    //
-//    //        // match Pw
-//    //        if(encoder.matches(userVo.getUserPw(), user.getUserPw())) {
-//    //            // 새 비밀번호를 넣는 구문.
-//    //
-//    //        }
-//
-//        return ResCommonVo.builder()
-//                .result(profileService.findUser(userVo))
-//                .code(ResCommonCode.SUCCESS)
-//                .build();
-//    }
+    @PostMapping(value="/api/checkPw", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResCommonVo changePw(@RequestBody UserVo userVo) {
+        try {
+            UserVo user = (UserVo) userService.findId(userVo).get("id");
+            System.out.println(userVo.getUserPw()); // 내가 입력한거
+            System.out.println(user.getUserPw()); // DB 저장돼있는거
+
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+            // match Pw
+            if (encoder.matches(userVo.getUserPw(), user.getUserPw())) {
+                // 새 비밀번호를 넣는 구문.
+                return ResCommonVo.builder()
+                        .code(ResCommonCode.SUCCESS)
+                        .build();
+            } else{
+                return ResCommonVo.builder()
+                        .code(ResCommonCode.FAILURE)
+                        .build();
+            }
+        } catch (NullPointerException e){
+            e.printStackTrace();
+            return ResCommonVo.builder()
+                    .code(ResCommonCode.FAILURE)
+                    .build();
+        }
+    }
+
+    @PutMapping(value="/api/updatePw", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResCommonVo updatePw(@RequestBody UserVo userVo){
+        return ResCommonVo.builder()
+                .result(profileService.updatePassword(userVo))
+                .code(ResCommonCode.SUCCESS)
+                .build();
+    }
 
     @PutMapping(value="/api/updateEmail", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResCommonVo updateEmail(@RequestBody UserVo userVo){
@@ -105,5 +121,11 @@ public class ProfileController {
                 .result(profileService.updateNickname(userVo))
                 .code(ResCommonCode.SUCCESS)
                 .build();
+    }
+
+    @DeleteMapping(value="/api/deleteUser", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void deleteUser(@RequestBody UserVo userVo, HttpSession session){
+        profileService.userDelete(userVo);
+        session.invalidate();
     }
 }

@@ -1,0 +1,28 @@
+button{
+    all:unset;
+    cursor: pointer;
+    font-weight: bolder;
+    font-size: 14px;
+    margin: 5px;
+    padding: 5px;
+    background-color: #ffffff;
+    color:#8041D9;
+    border-radius: 10px;
+    border:1px solid #8041D9;
+}
+
+button:hover{
+    background-color: #8041D9;
+    color: white;
+    transition: ease-in-out .2s;
+}
+
+td{
+    height:30px;
+}
+
+#my-name{
+    font-size:16px;
+    font-weight: bolder;
+    color:red;
+}

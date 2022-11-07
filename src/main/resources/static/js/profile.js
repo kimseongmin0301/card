@@ -1,4 +1,4 @@
-import {autoHyphen, regNickname, regEmail} from "./module.js";
+import {autoHyphen, regNickname, regEmail, regPw} from "./module.js";
 
 $(function(){
     const booleanCheck = {
@@ -12,6 +12,8 @@ $(function(){
         })
     }
     const checkEmail = () => {
+        let timeout;
+        let delay = 300;
         $('#profile-email').on("Propertychange keyup paste input", (e) => {
             if($('#now-text').text() !== $(e.target).val()) {
                 if (!regEmail($(e.target).val())) {
@@ -32,9 +34,32 @@ $(function(){
                 $('#nickname-error-msg').html("이메일이 동일합니다.");
                 $('#check-email').attr("disabled", "true");
             }
+            if(timeout) {
+                clearTimeout(timeout);
+            }
+            timeout = setTimeout(() => {
+                selectEmail(e);
+            }, delay);
         })
         $('#check-email').on('click', () => {
             emailCheck();
+        })
+    }
+
+    const selectEmail = (e) => {
+        $.ajax({
+            url: `/groovy/api/selectMail`,
+            type: `post`,
+            contentType: 'application/json',
+            data: JSON.stringify({"userEmail": $(e.target).val()}),
+            success: (data) => {
+                if(data.result.email == 1) {
+                    $('#nickname-error-msg').removeClass("green")
+                    $('#nickname-error-msg').addClass("red")
+                    $('#nickname-error-msg').html("가입된 이메일 입니다.");
+                    $('#check-email').attr("disabled", "true");
+                }
+            }
         })
     }
 
@@ -107,7 +132,7 @@ $(function(){
             contentType:`application/json`,
             success:(response) => {
                 isProfile(response.result.profile)
-                changeNickname(response.result.profile)
+                changeElement(response.result.profile)
             }
         })
     }
@@ -133,9 +158,9 @@ $(function(){
                 $('#tb-profile').append(str);
             })
         })
-
+        drawBtns();
     }
-    const changeNickname = (e) => {
+    const changeElement = (e) => {
         $('#nickname-btn').on('click', () => {
             onModal();
             e.map((value) => {
@@ -147,7 +172,7 @@ $(function(){
                         let str = '';
                         str += `<div id="new-value" class="my-4"> <h4>새 닉네임</h4>`
                         str += `<input type="text" maxlength="20" placeholder="Nickname" id="profile-nickname">`
-                        str += `<button id="update-btn">등록</button><span style="display:block;" id="nickname-error-msg"></span></div>`
+                        str += `<button id="update-btn" style="display: block">등록</button><span style="display:block;" id="nickname-error-msg"></span></div>`
 
                         $('#update-val').html(str);
                     }
@@ -201,8 +226,114 @@ $(function(){
             })
             updatePhone();
         })
+
+        $('#change-pw-btn').on('click', () => {
+            onModal();
+            $('#now-text').empty();
+            $('#update-title').html(`현재 비밀번호`);
+            let str = '';
+            str += `<input type="password" placeholder="Password" id="now-pw">`
+            str += `<h4>새 비밀번호</h4>`
+            str += `<input type="password" maxlength="20" placeholder="Password" id="new-pw" style="display: block">`
+            str += `<h4>비밀번호 확인</h4>`
+            str += `<input type="password" maxlength="20" placeholder="Password" id="check-pw" style="display: block">`
+            str += `<span class="red" id="error-msg-pw"></span>`
+            str += `<button id="update-pw" style="display: block">등록</button></div>`
+
+            $('#update-val').html(str);
+
+            $('#update-pw').on('click', ()=>{
+                checkPw();
+            })
+        })
+
+        $('#delete-id-btn').on('click', () => {
+            onModal();
+            $('#now-text').empty();
+            $('#update-title').html(`아이디 탈퇴`);
+            let str = '';
+            str += `<span>정말 탈퇴하시겠습니까?</span>`
+            str += `<button id="delete-btn" style="display: block">탈퇴하기</button></div>`
+
+            $('#update-val').html(str);
+
+            $('#delete-btn').on('click', () => {
+                deleteUser();
+            })
+        })
+
         $('.close-area').on('click', () => {
             offModal();
+        })
+    }
+
+    const deleteUser = () => {
+        let delConfirm = confirm('정말 탈퇴하시겠습니까?');
+        if (delConfirm) {
+            $.ajax({
+                url:`/groovy/api/deleteUser`,
+                type:`delete`,
+                data:JSON.stringify({
+                    "userId":$('#session-id').val()
+                }),
+                contentType:`application/json`,
+                success: () => {
+                    alert("다음에 또 만나면 좋겠어요. 행복하세요.")
+                    location.href = `/groovy`;
+                }
+            })
+        }
+        else {
+            alert('언제나 저희와 함께해요.');
+            offModal();
+        }
+    }
+
+    const checkPw = () => {
+        if(regPw($('#now-pw').val()) || regPw($('#new-pw').val()) || regPw($('#check-pw').val())) {
+            $.ajax({
+                url: `/groovy/api/checkPw`,
+                type: `post`,
+                data: JSON.stringify({
+                    "userId": $('#session-id').val(),
+                    "userPw": $('#now-pw').val()
+                }),
+                contentType: `application/json`,
+                success: (e) => {
+                    if (e.code === 'FAILURE') {
+                        alert("비밀번호를 다시 입력해 주세요")
+                        $('#error-msg-pw').html('비밀번호는 대소문자 영어, 숫자 2 ~ 8 입니다.');
+                        return false;
+                    } else if(e.code === 'SUCCESS'){
+                        if($('#new-pw').val() === $('#check-pw').val()) {
+                            alert("비밀번호가 수정되었습니다.")
+                            updatePw();
+                        } else{
+                            alert("새 비밀번호가 일치하지 않습니다.")
+                            return false;
+                        }
+                    }
+                }
+            })
+        } else{
+            $('#error-msg-pw').html('비밀번호는 대소문자 영어, 숫자 2 ~ 8 입니다.');
+            alert("비밀번호를 다시 입력해 주세요")
+        }
+    }
+
+    const updatePw = () => {
+        $.ajax({
+            url:`/groovy/api/updatePw`,
+            type:`put`,
+            data:JSON.stringify({
+                "userPw" : $('#new-pw').val(),
+                "userId" : $('#session-id').val()
+            }),
+            contentType:`application/json`,
+            success: (e) => {
+                offModal();
+                onProfile();
+            }
         })
     }
 
@@ -306,6 +437,14 @@ $(function(){
         $('#modal').css({
             "display" : "none"
         })
+    }
+
+    const drawBtns = () => {
+        let str = '';
+        str += `<button id="change-pw-btn">비밀번호 수정</button>`;
+        str += `<button id="delete-id-btn">회원 탈퇴</button>`
+
+        $('#profile-btns').html(str);
     }
 
     onProfile();

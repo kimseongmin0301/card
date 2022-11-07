@@ -68,7 +68,6 @@ $(function(){
         response.result.data.forEach(e => {
             yData.push(e.month);
         })
-        console.log(response.result.data);
 
         let chData = [];
         let idx;

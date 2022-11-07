@@ -237,7 +237,6 @@ $(function () {
             contentType: 'application/json',
             data: JSON.stringify({"userNickname": $('#nickname').val()}),
             success: (data) => {
-                console.log(data)
                 if(data.result.nickname == 1) {
                     isEmpty.nickname = false;
                     $('#nicknameMsg').css({

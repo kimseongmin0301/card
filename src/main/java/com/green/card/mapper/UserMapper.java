@@ -44,4 +44,8 @@ public interface UserMapper {
      * 로그인 쿼리
      */
     UserVo findId(UserVo userVo);
+
+    UserVo lostId(UserVo userVo);
+
+    void lostPw(UserVo userVo);
 }

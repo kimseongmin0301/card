@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+  <th:block th:replace="common/header"/>
+  <th:block layout:fragment="head">
+    <title>비밀번호 찾기</title>
+  </th:block>
+  <link rel="stylesheet" href="/css/find.css">
+</head>
+<body>
+<th:block th:replace="userFind"/>
+<div class="tb-content">
+  <div class="content-body">
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="position:relative; padding-top: 36px!important;">
+      <div style="margin: 100px auto;vertical-align: center;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+        <table>
+          <tr>
+            <td><h2>비밀번호 찾기</h2></td>
+          </tr>
+          <tr>
+            <td>아이디와 이메일을 입력하세요</td>
+          </tr>
+          <tr>
+            <td><input type="text" placeholder="ID" id="id"></td>
+          </tr>
+          <tr>
+            <td><input type="text" placeholder="Email" id="email"></td>
+            <td><button id="receive-auth">임시 비밀번호 받기</button></td>
+          </tr>
+          <tr>
+            <td><span id="my-pw"></span></td>
+          </tr>
+        </table>
+      </div>
+    </main>
+  </div>
+</div>
+<script src="/js/informationPw.js" type="module"></script>
+</body>
+</html>

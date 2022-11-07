@@ -31,3 +31,26 @@ input {
     color: green;
     font-weight: bolder;
 }
+
+th{
+    padding-left:10px;
+    width:100px;
+    height:30px;
+}
+
+td{
+    padding-left:10px;
+    width: auto;
+    height: 30px;
+}
+
+table{
+    border-collapse: collapse;
+    border-radius: 10px;
+    border-style: hidden;
+    box-shadow: 0 0 0 1px #dddddd;
+}
+
+#profile-btns{
+    margin: 10px 0px;
+}

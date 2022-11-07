@@ -14,4 +14,8 @@ public interface ProfileMapper {
     int updatePhone(UserVo userVo);
 
     int updateNickname(UserVo userVo);
+
+    int updatePassword(UserVo userVo);
+
+    void userDelete(UserVo userVo);
 }

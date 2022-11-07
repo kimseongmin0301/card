@@ -3,6 +3,7 @@ package com.green.card.service;
 import com.green.card.mapper.ProfileMapper;
 import com.green.card.vo.UserVo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -39,5 +40,21 @@ public class ProfileService {
         resultMap.put("phone", profileMapper.updateNickname(userVo));
 
         return resultMap;
+    }
+
+    public Map<String, Object> updatePassword(UserVo userVo){
+        Map<String, Object> resultMap = new HashMap<>();
+
+        BCryptPasswordEncoder scpwd = new BCryptPasswordEncoder();
+        String password = scpwd.encode(userVo.getUserPw());
+
+        userVo.setUserPw(password);
+
+        resultMap.put("pw", profileMapper.updatePassword(userVo));
+        return resultMap;
+    }
+
+    public void userDelete(UserVo userVo){
+        profileMapper.userDelete(userVo);
     }
 }
