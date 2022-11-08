@@ -18,5 +18,5 @@
 
 
 ### 배포 후 안되는것
-![image](https://user-images.githubusercontent.com/81849194/200458544-9c3a1608-e884-4ac3-bb09-ea57732aa298.png)
+![image](https://user-images.githubusercontent.com/81849194/200458544-9c3a1608-e884-4ac3-bb09-ea57732aa298.png)_home화면
 token을 받아오는 api라서 로컬환경에서는 이렇게 출력이 되지만 배포환경에서는 출력이 안된다.
