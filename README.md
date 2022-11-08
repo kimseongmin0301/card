@@ -13,6 +13,10 @@
 월별, 일별 데이터 차트화
 프로필수정(비밀번호-암호화, 닉네임, 이름, 이메일-이메일인증)
 
-
 ## ERD
 ![image](https://user-images.githubusercontent.com/81849194/200454756-9e2ed910-b02f-484e-986a-7ff68aba8e97.png)
+
+
+### 배포 후 안되는것
+![image](https://user-images.githubusercontent.com/81849194/200458544-9c3a1608-e884-4ac3-bb09-ea57732aa298.png)
+token을 받아오는 api라서 로컬환경에서는 이렇게 출력이 되지만 배포환경에서는 출력이 안된다.
