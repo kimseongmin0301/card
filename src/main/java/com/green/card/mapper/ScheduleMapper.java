@@ -33,5 +33,5 @@ public interface ScheduleMapper {
 
     int deleteSchedule(ScheduleVo scheduleVo);
 
-    Integer groupDateCnt(ScheduleVo scheduleVo);
+    List<ScheduleVo> groupDateCnt(ScheduleVo scheduleVo);
 }

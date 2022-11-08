@@ -43,11 +43,10 @@
             where date = (select date_format(DATE_ADD(date_format(now(),'%Y-%c-%e'), INTERVAL 1 day),'%Y-%c-%e'))
         </select>
 
-        <select id="groupDateCnt" parameterType="com.green.card.vo.ScheduleVo" resultType="java.lang.Integer">
-            select count(*)
+        <select id="groupDateCnt" parameterType="com.green.card.vo.ScheduleVo" resultType="com.green.card.vo.ScheduleVo">
+            select date, count(*) as count
             from tb_schedule
             where user_id = #{userId}
             group by date
-            having date = #{date}
         </select>
 </mapper>

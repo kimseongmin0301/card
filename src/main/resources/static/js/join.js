@@ -309,6 +309,7 @@ $(function () {
     const onBtnSend = () => {
         $('#check-email').on('click', () => {
             $('#authNoMsg').empty();
+            $('#check-email').attr('disabled',true)
             getAuthNo();
         })
     }

@@ -47,7 +47,7 @@ $(function () {
                 let str = '';
                 str += `<div class="day date prev disable" id="prev-${i}" name="date" data-date="${(currentMonth+1)%12==1?currentYear-1:currentYear}-${currentMonth%12==0?12:currentMonth%12}-${i}">` + i + `</div>`
                 $('.dates').append(str);
-                dateCnt($(`#prev-${i}`), $('#session-id').val());
+                // dateCnt($(`#prev-${i}`), $('#session-id').val());
             }
         }
 
@@ -56,7 +56,7 @@ $(function () {
             let str = '';
             str += `<div class="day date current" id='present-${i}' name="date" data-date="${currentYear}-${(currentMonth+1)%12==0?12:(currentMonth+1)%12}-${i}">` + i + `</div>`
             $('.dates').append(str);
-            dateCnt($(`#present-${i}`), $('#session-id').val());
+            // dateCnt($(`#present-${i}`), $('#session-id').val());
 
         }
 
@@ -65,7 +65,7 @@ $(function () {
             let str = '';
             str += `<div class="day date disable" id="next-${i}" name="date" data-date="${(currentMonth+2)%12==1?currentYear+1:currentYear}-${(currentMonth+2)%12==0?12:(currentMonth+2)%12}-${i}">` + i + `</div>`
             $('.dates').append(str);
-            dateCnt($(`#next-${i}`), $('#session-id').val());
+            // dateCnt($(`#next-${i}`), $('#session-id').val());
         }
 
 
@@ -77,11 +77,12 @@ $(function () {
 
         dateClick();
         closeClick();
+        dateCnt();
     }
 
     const onClickBtn = () => {
         // 이전달로 이동
-        $('.go-prev').on('click', () => {
+        $('.go-prev').off().on('click', () => {
             thisMonth = new Date(currentYear, currentMonth - 1, 1);
             renderCalendar(thisMonth);
 
@@ -89,7 +90,7 @@ $(function () {
         });
 
         // 다음달로 이동
-        $('.go-next').on('click', () => {
+        $('.go-next').off().on('click', () => {
             thisMonth = new Date(currentYear, currentMonth + 1, 1);
             renderCalendar(thisMonth);
 
@@ -178,14 +179,14 @@ $(function () {
             $('.page-num').append(str);
         }
 
-        $('.page').on('click', (e) => {
+        $('.page').off().on('click', (e) => {
             const temp = e.target.innerText;
             pagination.page = temp;
 
             selectList();
         })
 
-        $('#next').on('click', () => {
+        $('#next').off().on('click', () => {
             pagination.page = Math.ceil((pagination.page) / 5) * 5 + 1;
 
             if(pagination.page > totalPage) {
@@ -194,7 +195,7 @@ $(function () {
             selectList();
         })
 
-        $('#prev').on('click', () => {
+        $('#prev').off().on('click', () => {
             pagination.page = startPage - 5;
 
             if(pagination.page < 1) {
@@ -207,7 +208,7 @@ $(function () {
     }
 
     const scheduleAdd = () => {
-        $('.plus-area').on('click', () => {
+        $('.plus-area').off().on('click', () => {
             let str = '';
             let btn = '';
             $('.schedule-list').empty();
@@ -219,14 +220,14 @@ $(function () {
             $('.schedule-list').append(str);
             $('.page-num').append(btn);
 
-            $('#cancel-btn').on('click', () => {
+            $('#cancel-btn').off().on('click', () => {
                 $('.schedule-list').empty();
                 $('.page-num').empty();
 
                 selectList()
             })
 
-            $('#insert-btn').on('click', () => {
+            $('#insert-btn').off().on('click', () => {
                 pagination.page = pagination.lastPage;
 
                 onInsert();
@@ -304,7 +305,7 @@ $(function () {
     }
 
     const onDelete = () => {
-        $('.schedule-list').on('click', (e) => {
+        $('.schedule-list').off().on('click', (e) => {
             if(e.target.id.split('-')[0] === 'delete') {
                 let id = $(e.target).attr('id').split('-')[0];
                 if (id === 'delete') {
@@ -336,7 +337,7 @@ $(function () {
         })
     }
     const dateClick = () => {
-        $(".date").on("click", e => {
+        $(".date").off().on("click", e => {
             modalOn()
             pagination.date = e.target.dataset.date;
             pagination.page = 1;
@@ -345,7 +346,7 @@ $(function () {
         })
     }
     const closeClick = () => {
-        $(".close-area").on("click", e => {
+        $(".close-area").off().on("click", e => {
             modalOff()
             renderCalendar(thisMonth);
         })
@@ -361,17 +362,22 @@ $(function () {
     // }
 
     // 날짜별 데이터 카운터
-    const dateCnt = (date, id) => {
-        let dt = date.data();
-        dt.userId = id;
+    const dateCnt = () => {
         $.ajax({
             url: `/groovy/api/scheduleCount`,
             type: `post`,
-            data: JSON.stringify(dt),
+            data: JSON.stringify({
+                "userId":$('#session-id').val()
+            }),
             contentType:`application/json`,
-            success: cnt => {
-                if (cnt.result.dateCnt) {
-                    $(date).append(`<div id="date-cnt">${cnt.result.dateCnt}</div>`)
+            success: data => {
+                let date = $(".dates").find('.date')
+                for(let i=0; i<date.length; i++){
+                    data.result.dateCnt.forEach((e) => {
+                        if(e.date === date[i].dataset.date){
+                            $(date[i]).append(`<div id="date-cnt">${e.count}</div>`)
+                        }
+                    })
                 }
             }
         })

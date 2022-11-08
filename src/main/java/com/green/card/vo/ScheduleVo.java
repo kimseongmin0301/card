@@ -10,4 +10,5 @@ public class ScheduleVo {
     private String date;
     private String regDt;
     private String modDt;
+    private int count;
 }
