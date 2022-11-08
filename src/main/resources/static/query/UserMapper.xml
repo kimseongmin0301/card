@@ -56,4 +56,11 @@
         set user_pw = #{userPw}
         where user_id = #{userId} and user_email = #{userEmail}
     </update>
+
+
+    <select id="isUser" parameterType="com.green.card.vo.UserVo" resultType="java.lang.Integer">
+        select count(*)
+        from tb_user
+        where user_id = #{userId} and user_email = #{userEmail}
+    </select>
 </mapper>

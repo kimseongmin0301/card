@@ -21,7 +21,7 @@ td{
     height:30px;
 }
 
-#my-name{
+#my-name, #my-pw{
     font-size:16px;
     font-weight: bolder;
     color:red;

@@ -48,4 +48,6 @@ public interface UserMapper {
     UserVo lostId(UserVo userVo);
 
     void lostPw(UserVo userVo);
+
+    Integer isUser(UserVo userVo);
 }

@@ -157,4 +157,13 @@ public class UserController {
     public void newAuthPw(@RequestBody UserVo userVo){
         userService.lostPw(userVo);
     }
+
+    @PostMapping(value="/api/isUser")
+    public ResCommonVo isId(@RequestBody UserVo UserVo) {
+
+        return ResCommonVo.builder()
+                .result(userService.isId(UserVo))
+                .code(ResCommonCode.SUCCESS)
+                .build();
+    }
 }

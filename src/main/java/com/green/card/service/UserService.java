@@ -3,6 +3,7 @@ package com.green.card.service;
 import com.green.card.mapper.UserMapper;
 import com.green.card.vo.UserVo;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -84,5 +85,12 @@ public class UserService {
         userVo.setUserPw(password);
 
         userMapper.lostPw(userVo);
+    }
+
+    public Map<String, Object> isId(UserVo userVo){
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("user", userMapper.isUser(userVo));
+
+        return resultMap;
     }
 }

@@ -7,21 +7,41 @@ $(function(){
     const checkEmail = () => {
         $('#receive-auth').off().on('click', () => {
             if(regId($('#id').val()) && regEmail($('#email').val())){
-                $('#receive-auth').attr("disabled",true);
                 $.ajax({
-                    url:`/groovy/api/authPw`,
+                    url:`/groovy/api/isUser`,
                     type:`post`,
                     data:JSON.stringify({
-                        "email":$('#email').val()
+                        "userId":$('#id').val(),
+                        "userEmail":$('#email').val()
                     }),
                     contentType:`application/json`,
-                    success: e => {
-                        alert("임시 비밀번호가 발송되었습니다.")
-                        authPw(e)
+                    success:e => {
+                        if(e.result.user === 1){
+                            receiveMail();
+                        } else{
+                            alert('일치하는 정보가 없습니다.');
+                            location.reload();
+                        }
                     }
                 })
             } else{
                 $('#my-pw').html("아이디와 이메일을 올바르게 입력해주세요")
+            }
+        })
+    }
+
+    const receiveMail = () => {
+        $('#receive-auth').attr("disabled",true);
+        $.ajax({
+            url:`/groovy/api/authPw`,
+            type:`post`,
+            data:JSON.stringify({
+                "email":$('#email').val()
+            }),
+            contentType:`application/json`,
+            success: e => {
+                alert("임시 비밀번호가 발송되었습니다.")
+                authPw(e)
             }
         })
     }
