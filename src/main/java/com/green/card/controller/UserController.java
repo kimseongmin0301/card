@@ -7,14 +7,9 @@ import com.green.card.vo.EmailAuthRequestVo;
 import com.green.card.vo.ResCommonVo;
 import com.green.card.vo.UserVo;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
-import org.apache.ibatis.jdbc.Null;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -99,12 +94,19 @@ public class UserController {
                 .build();
     }
 
+    /**
+     * 로그인
+     * @param userVo
+     * @param session
+     * @return
+     */
     @PostMapping(value="/api/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResCommonVo userLoginChk(@RequestBody UserVo userVo, HttpSession session) {
         try{
             UserVo user = (UserVo) userService.findId(userVo).get("id");
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
+            // 입력한 비밀번호와 DB에 저장된 비밀번호 매칭
             if(encoder.matches(userVo.getUserPw(), user.getUserPw())) {
                 session.setAttribute("id", userVo.getUserId());
 
@@ -125,11 +127,20 @@ public class UserController {
         }
     }
 
+    /**
+     * 로그아웃
+     * @param session
+     */
     @PostMapping(value="/api/logout")
     public void logOut(HttpSession session){
         session.invalidate();
     }
 
+    /**
+     * 아이디 찾기
+     * @param userVo
+     * @return
+     */
     @PostMapping(value="/api/lostId")
     public ResCommonVo lostId(@RequestBody UserVo userVo){
 
@@ -139,6 +150,13 @@ public class UserController {
                 .build();
     }
 
+    /**
+     * 아이디찾기 메일인증
+     * @param emailVo
+     * @return
+     * @throws MessagingException
+     * @throws UnsupportedEncodingException
+     */
     @PostMapping(value="/api/authId")
     public ResponseEntity<?> authId(@RequestBody EmailAuthRequestVo emailVo) throws MessagingException, UnsupportedEncodingException {
         String authNum =  emailService.sendNewIdEmail(emailVo.getEmail());
@@ -146,6 +164,13 @@ public class UserController {
         return new ResponseEntity<>(authNum, HttpStatus.OK);
     }
 
+    /**
+     * 임시비밀번호 이메일 발송
+     * @param emailVo
+     * @return
+     * @throws MessagingException
+     * @throws UnsupportedEncodingException
+     */
     @PostMapping(value="/api/authPw")
     public ResponseEntity<?> authPw(@RequestBody EmailAuthRequestVo emailVo) throws MessagingException, UnsupportedEncodingException {
         String authNum =  emailService.sendNewPwEmail(emailVo.getEmail());
@@ -153,11 +178,20 @@ public class UserController {
         return new ResponseEntity<>(authNum, HttpStatus.OK);
     }
 
+    /**
+     * 임시 비밀번호 등록
+     * @param userVo
+     */
     @PutMapping(value="/api/lostPw", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public void newAuthPw(@RequestBody UserVo userVo){
         userService.lostPw(userVo);
     }
 
+    /**
+     * 아이디 유무 판별
+     * @param UserVo
+     * @return
+     */
     @PostMapping(value="/api/isUser")
     public ResCommonVo isId(@RequestBody UserVo UserVo) {
 

@@ -6,6 +6,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 public class WebConfig implements WebMvcConfigurer {
+    /**
+     * XSS filter
+     * @return
+     */
     @Bean
     public FilterRegistrationBean<XssEscapeServletFilter> getFilterRegistrationBean(){
         FilterRegistrationBean<XssEscapeServletFilter> registrationBean = new FilterRegistrationBean<>();

@@ -15,7 +15,7 @@ $(function(){
                     }),
                     contentType:`application/json`,
                     success:e => {
-                        alert("메일이 발송되었습니다.")
+                        alert("메일이 발송되었습니다. 메일이 오지 않으면 입력하신 정보가 회원정보와 일치하는지 확인해 주세요.")
                         findInformationId(e);
                     }
                 })
@@ -38,11 +38,12 @@ $(function(){
                     }),
                     contentType:`application/json`,
                     success:(response) => {
+                        console.log(response);
                         if(response.result.id === null){
                             alert("일치하는 정보가 없습니다")
                             location.reload();
                         }else{
-                            $("#my-name").html(`아이디 : `+ response.result.id.userId);
+                            $("#my-name").html(`아이디 : `+ response.result.id.userId + `<a href="/groovy/findPw"><button>비밀번호 찾기</button></a>`);
                         }
                     }
                 })

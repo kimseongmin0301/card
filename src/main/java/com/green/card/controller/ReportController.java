@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.*;
 public class ReportController {
     private final ReportService reportService;
 
+    /**
+     * 월별 데이터 최근 1년
+     * @param reportVo
+     * @return
+     */
     @PostMapping(value="/api/month", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResCommonVo monthData(@RequestBody ReportVo reportVo){
 
@@ -23,6 +28,12 @@ public class ReportController {
                 .code(ResCommonCode.SUCCESS)
                 .build();
     }
+
+    /**
+     * 일별 데이터 최근 12일
+     * @param reportVo
+     * @return
+     */
     @PostMapping(value="/api/date", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResCommonVo dateData(@RequestBody ReportVo reportVo){
 

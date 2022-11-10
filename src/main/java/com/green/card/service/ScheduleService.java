@@ -45,6 +45,11 @@ public class ScheduleService {
         return resultMap;
     }
 
+    /**
+     * 스케줄 삭제
+     * @param scheduleVo
+     * @return
+     */
     public Map<String, Object> deleteSchedule(ScheduleVo scheduleVo){
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("content", scheduleMapper.deleteSchedule(scheduleVo));
@@ -52,6 +57,11 @@ public class ScheduleService {
         return resultMap;
     }
 
+    /**
+     * 날짜별 데이터 카운트
+     * @param scheduleVo
+     * @return
+     */
     public Map<String, Object> groupDateCnt(ScheduleVo scheduleVo){
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("dateCnt", scheduleMapper.groupDateCnt(scheduleVo));

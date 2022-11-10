@@ -64,6 +64,11 @@ public class UserService {
         userMapper.insertMember(userVo);
     }
 
+    /**
+     * 로그인 용 아이디 패스워드 데이터 출력
+     * @param userVo
+     * @return
+     */
     public Map<String, Object> findId(UserVo userVo){
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("id", userMapper.findId(userVo));
@@ -71,6 +76,11 @@ public class UserService {
         return resultMap;
     }
 
+    /**
+     * 아이디 찾기
+     * @param userVo
+     * @return
+     */
     public Map<String, Object> lostId(UserVo userVo){
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("id", userMapper.lostId(userVo));
@@ -78,6 +88,10 @@ public class UserService {
         return resultMap;
     }
 
+    /**
+     * 임시 비밀번호 암호화 업데이트
+     * @param userVo
+     */
     public void lostPw(UserVo userVo){
         BCryptPasswordEncoder scpwd = new BCryptPasswordEncoder();
         String password = scpwd.encode(userVo.getUserPw());
@@ -87,6 +101,11 @@ public class UserService {
         userMapper.lostPw(userVo);
     }
 
+    /**
+     * 아이디 존재 여부
+     * @param userVo
+     * @return
+     */
     public Map<String, Object> isId(UserVo userVo){
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("user", userMapper.isUser(userVo));

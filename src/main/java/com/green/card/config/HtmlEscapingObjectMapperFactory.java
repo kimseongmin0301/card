@@ -38,6 +38,9 @@ public class HtmlEscapingObjectMapperFactory implements FactoryBean<ObjectMapper
     }
 
 
+    /**
+     * XSS filter
+     */
     public static class HTMLCharacterEscapes extends CharacterEscapes {
 
         private static final long serialVersionUID = 1L;

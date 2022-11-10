@@ -88,6 +88,11 @@ public class ProfileController {
         }
     }
 
+    /**
+     * 비밀번호 변경
+     * @param userVo
+     * @return
+     */
     @PutMapping(value="/api/updatePw", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResCommonVo updatePw(@RequestBody UserVo userVo){
         return ResCommonVo.builder()
@@ -96,6 +101,11 @@ public class ProfileController {
                 .build();
     }
 
+    /**
+     * 이메일 변경
+     * @param userVo
+     * @return
+     */
     @PutMapping(value="/api/updateEmail", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResCommonVo updateEmail(@RequestBody UserVo userVo){
 
@@ -105,6 +115,11 @@ public class ProfileController {
                 .build();
     }
 
+    /**
+     * 휴대폰번호 변경
+     * @param userVo
+     * @return
+     */
     @PutMapping(value="/api/updatePhone", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResCommonVo updatePhone(@RequestBody UserVo userVo){
 
@@ -114,6 +129,11 @@ public class ProfileController {
                 .build();
     }
 
+    /**
+     * 닉네임 변경
+     * @param userVo
+     * @return
+     */
     @PutMapping(value="/api/updateNickname", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResCommonVo updateNickname(@RequestBody UserVo userVo){
 
@@ -123,6 +143,11 @@ public class ProfileController {
                 .build();
     }
 
+    /**
+     * 회원 탈퇴
+     * @param userVo
+     * @param session
+     */
     @DeleteMapping(value="/api/deleteUser", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public void deleteUser(@RequestBody UserVo userVo, HttpSession session){
         profileService.userDelete(userVo);

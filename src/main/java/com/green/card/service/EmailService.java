@@ -97,6 +97,7 @@ public class EmailService {
         return message;
     }
 
+    // 아이디 찾기
     public MimeMessage findIdForm(String email) throws MessagingException, UnsupportedEncodingException {
 
         createCode(); //인증 코드 생성
@@ -108,7 +109,7 @@ public class EmailService {
         message.addRecipients(MimeMessage.RecipientType.TO, toEmail); //보낼 이메일 설정
         message.setSubject(title); //제목 설정
         message.setFrom(setFrom); //보내는 이메일
-        message.setText(findPwContext(authNum, toEmail), "utf-8", "html");
+        message.setText(findIdContext(authNum, toEmail), "utf-8", "html");
 
         return message;
     }

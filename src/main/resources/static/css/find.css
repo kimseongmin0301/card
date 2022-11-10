@@ -26,3 +26,7 @@ td{
     font-weight: bolder;
     color:red;
 }
+
+a{
+    text-decoration: none;
+}

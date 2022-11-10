@@ -14,8 +14,11 @@ function onGeoOk(position){
         });
 
 }
+
+// token을 못불러왔을 때
 function onGeoError(){
-    alert("Can't find you. No weather for you.")
+    // alert("Can't find you. No weather for you.")
+    console.log("Can't find you. No weather for you.")
 }
 
 navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError);

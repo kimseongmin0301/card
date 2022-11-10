@@ -40,7 +40,7 @@ $(function(){
             }),
             contentType:`application/json`,
             success: e => {
-                alert("임시 비밀번호가 발송되었습니다.")
+                alert("임시 비밀번호가 발송되었습니다. 메일이 오지 않으면 입력하신 정보가 회원정보와 일치하는지 확인해 주세요.")
                 authPw(e)
             }
         })

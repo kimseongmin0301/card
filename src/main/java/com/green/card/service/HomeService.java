@@ -13,6 +13,11 @@ import java.util.Map;
 public class HomeService {
     private final HomeMapper homeMapper;
 
+    /**
+     * 오늘 스케줄 데이터
+     * @param scheduleVo
+     * @return
+     */
     public Map<String, Object> selectOne(ScheduleVo scheduleVo){
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("date", homeMapper.selectOne(scheduleVo));

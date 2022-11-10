@@ -15,12 +15,6 @@ public interface UserMapper {
     int selectEmail(UserVo userVo);
 
     /**
-     * 회원가입 쿼리
-     * @param userVo
-     */
-    void joinUser(UserVo userVo);
-
-    /**
      * 아이디 중복 검사 쿼리
      * @param userVo
      * @return
@@ -45,9 +39,23 @@ public interface UserMapper {
      */
     UserVo findId(UserVo userVo);
 
+    /**
+     * 아이디 찾기 쿼리
+     * @param userVo
+     * @return
+     */
     UserVo lostId(UserVo userVo);
 
+    /**
+     * 임시비밀번호 수정 쿼리
+     * @param userVo
+     */
     void lostPw(UserVo userVo);
 
+    /**
+     * 회원 유무 판별 쿼리
+     * @param userVo
+     * @return
+     */
     Integer isUser(UserVo userVo);
 }

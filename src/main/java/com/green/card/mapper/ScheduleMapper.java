@@ -29,9 +29,24 @@ public interface ScheduleMapper {
      */
     void scheduleAdd(ScheduleVo scheduleVo);
 
+    /**
+     * 스케줄 수정 쿼리
+     * @param scheduleVo
+     * @return
+     */
     int updateContent(ScheduleVo scheduleVo);
 
+    /**
+     * 스케줄 삭제 쿼리
+     * @param scheduleVo
+     * @return
+     */
     int deleteSchedule(ScheduleVo scheduleVo);
 
+    /**
+     * 날짜별 스케줄 출력 쿼리
+     * @param scheduleVo
+     * @return
+     */
     List<ScheduleVo> groupDateCnt(ScheduleVo scheduleVo);
 }
