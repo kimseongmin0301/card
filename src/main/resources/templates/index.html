@@ -1,12 +1,21 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/main.css">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <title>Groovy</title>
 </head>
-<body>
+<body th:if="${session.id}" style="background: #ffffff">
+    <script>
+        const home = () => {
+            location.href=`/groovy/home`
+        }
+        window.onload = home();
+    </script>
+</body>
+<body th:unless="${session.id}">
 <div id="wrap">
     <header id="header">
         <h1>Groovy</h1>
@@ -18,7 +27,6 @@
         <input type="button" id="login-btn" value="Login">
     </div>
     <div id="find-area"><span id="find-id">아이디찾기</span><span id="find-pw">비밀번호찾기</span><span id="insert-btn">회원가입</span></div>
-
 </div>
 <div id="bg">
 
