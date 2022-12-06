@@ -10,6 +10,8 @@ http://poceania.o-r.kr/groovy<br>
 아이디/비밀번호찾기(메일인증)<br>
 회원가입<br>
 로그인(비밀번호 암호화)<br>
+![image](https://user-images.githubusercontent.com/81849194/205849660-b30c1cba-c7fa-4816-9aae-4d3c56949a75.png)<br>
+
 오늘의 일정, 현재시간, 날씨<br>
 스케줄관련 CRUD<br>
 그림판<br>
