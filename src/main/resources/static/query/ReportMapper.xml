@@ -14,7 +14,7 @@
     <select id="dateGroup" parameterType="com.green.card.vo.ReportVo" resultType="com.green.card.vo.ReportVo">
         SELECT count(*) `count`, date_format(str_to_date(date,'%Y-%m-%d'),'%c-%e') `date`
         FROM  tb_schedule
-        WHERE DATE_FORMAT(str_to_date(date,'%Y-%m-%d'),'%Y-%m-%d') between date_sub(now(), interval 12 day) and now()
+        WHERE DATE_FORMAT(str_to_date(date,'%Y-%m-%d'),'%Y-%m-%d') between date_sub(DATE_FORMAT(NOW(), '%Y-%m-01'), interval 1 year) and LAST_DAY(NOW())
         AND   user_id = #{userId}
         group by `date`
     </select>

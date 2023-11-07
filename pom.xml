@@ -10,9 +10,9 @@
 	</parent>
 	<groupId>com.green</groupId>
 	<artifactId>card</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>card</name>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<description>Card</description>
 	<properties>
 		<java.version>11</java.version>

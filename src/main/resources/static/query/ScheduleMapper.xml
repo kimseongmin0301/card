@@ -23,8 +23,8 @@
         </select>
 
         <insert id="scheduleAdd" parameterType="com.green.card.vo.ScheduleVo">
-            insert into tb_schedule(content, user_id, date)
-            values(#{content}, #{userId}, #{date})
+            insert into tb_schedule(content, user_id, date, reg_dt)
+            values(#{content}, #{userId}, #{date}, sysdate())
         </insert>
 
         <update id="updateContent">
