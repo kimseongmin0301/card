@@ -1,19 +1,34 @@
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
+
 spring:
   profiles:
     active: local
+
   mail:
     # Google smtp  server
     host:  smtp.gmail.com
     port: 587
-    username: poseania1358@gmail.com
-    password: eshddhvbwotbfkkz
+    username: ENC(Z3XTsGEqSy62RXq4MJSOeV1e5aZ51EyghHk+xocBJS0=)
+    password: ENC(ceV5eyXDDxf/7BIimxXMmueTSnoLteecxJ8+NF5pQMU=)
     properties:
       mail:
         smtp:
           starttls:
             enable: true
           auth: true
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ENC(3bZMLkokOW/eG/z9XV6sDuFc3yFlFPaif0wPghT1BkJp2E8V/vu8iHkKXtV8qr6OP77mqRkpekPYR6o/il2i0cbuVjmfcq9X)
+    username: ENC(sKj+vjzVYnZY1Kfw0MJcuw==)
+    password: ENC(qtccACIogNiahsseGQ8ugQ==)
+
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
   mapper-locations: classpath:static/query/*.xml
+
+server:
+  port:8080
