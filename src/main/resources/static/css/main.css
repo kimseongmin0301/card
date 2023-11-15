@@ -114,6 +114,7 @@ input{
     z-index: 1;
     background-repeat: no-repeat;
     background-image: url("https://www.wallpaperuse.com/wallp/0-9757_m.jpg");
+    background-size : cover;
 }
 
 #insert{
